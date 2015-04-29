@@ -10,7 +10,7 @@
 #                  #
 ####################
 
-version=4.9.1
+version=5.1.0
 machine=arm-eabi
 
 # This is sjw's preferred build style
@@ -90,6 +90,7 @@ ask_base_prefix() {
    cat << EOF
 
     In which directory do you want to install FSF GCC $version for $machine?
+    (it's strongly recommended not to use a longer path than the default)
         [$prefix]:
 EOF
     read ans_prefix

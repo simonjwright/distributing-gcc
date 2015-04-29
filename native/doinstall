@@ -10,11 +10,13 @@
 #                  #
 ####################
 
-version=4.9.1
+version=5.1.0
 machine=x86_64-apple-darwin13
 
-# This is sjw's preferred build style
-built_prefix="/opt/gcc-$version"
+# SJW's preferred build style would be "/opt/gcc-$version", but on the
+# Mac we have to adjust the rpaths, so this longer version is used
+# instead.
+built_prefix="/usr/local/gnat/$version"
 
 prefix=$built_prefix
 xprefix=""
@@ -89,7 +91,8 @@ ask_base_prefix() {
 
    cat << EOF
 
-    In which directory do you want to install FSF GCC $version?
+    In which directory do you want to install FSF GCC $version? (it's
+    strongly recommended not to use a longer path than the default)
         [$prefix]:
 EOF
     read ans_prefix

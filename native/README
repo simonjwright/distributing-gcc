@@ -17,10 +17,21 @@ script writes some temporary files and a complete report of its actions
 by setting the TMPDIR environment variable to an appropriate writable
 directory.
 
+It is strongly recommended that, if you choose to override the
+displayed default installation directory, you should use a name no
+longer than the default.
+
 USE
 
 Using GNAT is documented in the GNAT User's Guide available at
-https://gcc.gnu.org/onlinedocs/gnat_ugn_unw/.
+https://gcc.gnu.org/onlinedocs/gnat_ugn/.
+
+GDB
+
+gdb has to be 'code-signed' (unless you're willing to run it as root!)
+
+Instructions are at
+https://gcc.gnu.org/onlinedocs/gnat_ugn/Codesigning-the-Debugger.html
 
 EXAMPLES
 

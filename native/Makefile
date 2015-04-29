@@ -1,13 +1,13 @@
 SHELL=/bin/sh
-# This makefile is used for installing the binary distribution of GNAT cross.
+# This makefile is used for installing the binary distribution of GNAT native.
 # The installation script resulting from configuration consists
 # of make commands using this makefile.  The options allowed by setting
 # the directories by hand are greater than those allowed in the
 # configuration script.
 
-version       = 4.9.1
+version       = 5.1.0
 machine       = x86_64-apple-darwin13
-built_prefix  = /opt/gcc-$(version)
+built_prefix  = /usr/local/gnat/$(version)
 prefix        = $(built_prefix)
 gcc_lib       = gcc
 libsubdir     = $(prefix)/lib/$(gcc_lib)/$(machine)/$(version)
@@ -84,4 +84,4 @@ ins-fixup::
 mkdirs:
 	rm -fr $(libsubdir)/rts*
 	rm -fr $(adaincdir) $(adaobjdir)
-	-mkdir $(prefix)
+	mkdir -p $(prefix)

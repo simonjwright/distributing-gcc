@@ -5,7 +5,7 @@ SHELL=/bin/sh
 # the directories by hand are greater than those allowed in the
 # configuration script.
 
-version       = 4.9.1
+version       = 5.1.0
 machine       = arm-eabi
 
 # We need to know where the builder compiler was, so that we can
@@ -91,4 +91,4 @@ ins-fixup::
 mkdirs:
 	rm -fr $(libsubdir)/rts*
 	rm -fr $(adaincdir) $(adaobjdir)
-	-mkdir $(prefix)
+	mkdir -p $(prefix)

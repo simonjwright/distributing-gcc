@@ -1,0 +1,407 @@
+#! /bin/sh
+#
+# GCC binary distribution installation script
+# Copyright (c) 2003-2013, Free Software Foundation
+#
+
+####################
+#                  #
+# Global variables #
+#                  #
+####################
+
+version=4.9.1
+machine=x86_64-apple-darwin13
+
+# This is sjw's preferred build style
+built_prefix="/opt/gcc-$version"
+
+prefix=$built_prefix
+xprefix=""
+: ${TMPDIR:=`pwd`}
+tmpout="${TMPDIR}/install.log"
+tmpvalue="${TMPDIR}/install.$$"
+
+#####################################################
+#                                                   #
+# Says that a given command was not found and exits #
+#                                                   #
+#####################################################
+
+command_not_found () {
+    cmd="$1"
+    cat << EOF
+
+The $cmd command could not be found on your PATH. It is required to have
+it in your PATH in order to install successfully $long_qualifier. Please
+add the directory were $cmd can be found on your PATH or contact your
+system administrator to have it installed in a standard location.
+
+
+EOF
+    exit 1
+}
+
+##########################
+#                        #
+# Checks the environment #
+#                        #
+##########################
+
+check_env () {
+
+    # type returns 0 on success, >0 on failure
+    for cmd in make tee cat clear; do
+        type_out=`type $cmd 2>&1`
+        type_rv=$?
+        if [ $type_rv -ne 0 ]; then
+            command_not_found $cmd
+        fi
+    done
+}
+
+################################
+#                              #
+# Adds the correct description #
+#                              #
+################################
+
+set_qualifier () {
+    case $gnatver in
+    *w|*a*|[0-9].[0-9].[0-9])
+        qualifier="Pro"
+        long_qualifier="GCC Pro"
+        ;;
+    [0-9][0-9][0-9][0-9]*)
+        qualifier="GPL"
+        long_qualifier="GCC GPL Edition"
+        ;;
+    esac
+}
+
+###########################################
+#                                         #
+# Ask for the base installation directory #
+#                                         #
+###########################################
+
+ask_base_prefix() {
+
+   cat << EOF
+
+    In which directory do you want to install FSF GCC $version?
+        [$prefix]:
+EOF
+    read ans_prefix
+
+    if [ "x$ans_prefix" != "x" ]; then
+        prefix=$ans_prefix
+    fi
+}
+
+######################################################
+#                                                    #
+# Ask the installation directory of the cross system #
+#                                                    #
+######################################################
+
+ask_xprefix () {
+
+    check_dir=$1
+    name="$2"
+    if [ "$name" = "" ] ; then
+        name=$machine
+    fi
+    clear
+    check="nok"
+    while [ "$check" != "ok" ]; do
+        cat <<EOF
+
+
+  The installation could not find the original
+  $name installation directory.
+  Please specify the base $os installation dir:
+
+EOF
+        read xprefix
+        if [ -d $xprefix/$check_dir ]; then
+            check="ok"
+        fi
+    done
+}
+
+#######################################
+#                                     #
+# Install GCC to a standard location #
+#                                     #
+#######################################
+
+standard_installation () {
+
+   # Check if there's a former installation of GCC
+   if [ -d $prefix/lib/gcc-lib/$machine/$version -o \
+        -d $prefix/lib/gcc/$machine/$version ]; then
+      clear
+      cat << EOF
+
+
+   Some gcc-$version files were found in
+      $prefix
+   If you want to exit the installation process and cleanup this
+   directory manually, press 'N'. If you want to proceed with
+   installation, press 'Y'.
+
+   Do you want to proceed anyway ? [yY|Nn]:
+
+EOF
+      read carryon
+      case $carryon in
+      [yY]*)
+          ;;
+      *)
+          echo "  Installation interrupted on user's request"
+          exit 1
+          ;;
+      esac
+   fi
+
+   # Makes the real installation
+   touch $tmpout &&
+     (make ins-all \
+         prefix=$prefix \
+         machine=$machine \
+         version=$version \
+         built_prefix=$built_prefix 2>&1; echo $? > $tmpvalue ) | tee $tmpout
+
+   # Check that installation was OK
+
+   error_exit=false
+
+   if [ ! -f "$tmpout" ]; then
+      error_exit=true
+      cat << EOF
+
+
+   An error occurred during installation. The installation log file,
+   $tmpout, could not be written.
+EOF
+
+   elif [ ! -f "$tmpvalue" -o `cat $tmpvalue` -ne 0 ]; then
+      error_exit=true
+      cat << EOF
+
+
+   An error occurred during installation. You can find a complete log
+   of the installation in $tmpout.
+EOF
+   fi
+
+   if $error_exit; then
+      cat << EOF
+
+   Don't hesitate to post a ticket at https://sf.net/p/gnuada if you
+   have questions about this installation process.
+EOF
+      exit 1
+   fi
+
+   rm -f $tmpvalue
+
+   case $machine in
+      *darwin*)
+         clear
+
+         cat << EOF
+   On OS X, the debugger needs to be codesigned in order to access
+   the priviledges required for debugging.
+
+   Please refer to the procedure documented in the Mac OS Topics
+   chapter of the GNAT User's Guide, section Codesigning the
+   Debugger. This procedure should be applied after the FSF GCC
+   install has completed.
+
+   Press Enter to continue.
+EOF
+
+         read carryon
+         ;;
+      *) clear ;;
+   esac
+
+   cat << EOF
+
+
+   FSF GCC $version is now installed. To launch it, you must put
+      $prefix/bin
+   in front of your PATH environment variable. The following
+   commands enable you to do this:
+      PATH=$prefix/bin:\$PATH; export PATH  (Bourne shell)
+      setenv PATH $prefix/bin:\$PATH        (C shell)
+   Thank you for installing FSF GCC $version!
+
+EOF
+}
+
+######################
+#                    #
+# Start installation #
+#                    #
+######################
+
+#set_qualifier
+check_env
+
+# This avoids some problems when cd prints the new directory when CDPATH
+# is defined
+unset CDPATH
+
+clear
+cat << EOF
+
+
+   This script is provided to simplify the installation of the
+     $machine
+   binary version of the FSF GCC $version Ada environment.
+
+   This script will ask you how you would like to configure GCC.
+   Confirmation is required before any write action is taken.
+
+   Please press RETURN to continue.
+
+EOF
+
+read dummy
+
+# Ask information for non-standard installation
+confirm="KO"
+curdir=`pwd`
+while [ "x$confirm" != "xOK" ]; do
+
+    # Ask the base directory for installation
+    clear
+    cat << EOF
+
+
+    To install GCC, you need to specify a base directory.
+    All the files will be installed in subdirectories
+    that are created under this directory.
+
+    Important Note: You should not use ~ or ~username wildcards
+    when specifying this directory name.
+EOF
+    ask_base_prefix
+    while [ "$prefix" = "$curdir" ]; do
+       #target base directory cannot be the same as the current dir
+       cat << EOF
+
+    The target base directory cannot be the current directory.
+    Please enter another directory name.
+EOF
+       ask_base_prefix
+    done
+
+    # Ask confirmation
+    cat << EOF
+
+
+    The installation directory will be:
+      $prefix
+    Is this correct ? Type 'Y' if so, otherwise type 'N' and you'll
+    be prompted for another directory name.
+
+    Do you want to continue ? [yY|nN]:
+
+EOF
+    read confirm
+    case $confirm in
+    [yY])
+        confirm="OK"
+        ;;
+    *)
+        confirm="KO"
+        ;;
+    esac
+done
+
+# Prepare installation of some cross compilers
+case $machine in
+    *-*-pikeos)
+        case $machine in
+            powerpc-*)
+                xcdk=ppc/oea
+                sysgotriplet=powerpc-unknown-elf
+            ;;
+            i586-*)
+                xcdk=x86/i586
+                sysgotriplet=i386-unknown-elf
+            ;;
+        esac
+
+        os="PikeOS"
+        if [ "$PIKEOS_PREFIX" != "" ]; then
+            xprefix=$PIKEOS_PREFIX
+        else
+            ask_xprefix cdk/$xcdk/bin "PikeOS"
+        fi
+        ;;
+esac
+
+# Ask confirmation
+clear
+cat << EOF
+
+
+   FSF GCC $bsever is now about to be installed in
+      $prefix.
+   Type 'Y' if you want to proceed with installation or any other key
+   if you wish to abort.
+
+   Do you want to proceed with installation ? [yY|nN]:
+
+EOF
+read proceed
+case $proceed in
+[yY]*)
+    ;;
+*)
+    echo "Aborting installation on user request"
+    exit 0
+    ;;
+esac
+
+# Prepare installation of some cross compilers
+case $machine in
+    *-wrs-vxworksae|*-wrs-vxworksmils)
+        cp gdb.tcl $xprefix/host/resource/tcl > /dev/null 2>&1
+        if [ $? -ne 0 ]; then
+            cat <<EOF
+
+
+WARNING:
+  The installation script was unable to copy the following files to
+  $xprefix/host/resource/tcl:
+
+    gdb.tcl
+
+  This file is needed for the debugger. Please contact your system
+  administrator if necessary.
+
+  Press Return to continue.
+
+EOF
+            read dummy
+        fi
+        ;;
+   *-*-pikeos)
+        mkdir -p $machine/bin
+        mkdir -p $machine/lib
+        cp -p $xprefix/cdk/$xcdk/$sysgotriplet/bin/* $machine/bin
+        cp -p $xprefix/target/$xcdk/scripts/app-ld-script $machine/lib
+        for f in $machine/bin/*; do
+            cp $f bin/$machine-`basename $f`
+        done
+        ;;
+esac
+
+# Do the real installation
+standard_installation

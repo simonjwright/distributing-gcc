@@ -20,85 +20,93 @@ ext           =
 ins-all: ins-basic ins-fixup
 
 ins-basic:: mkdirs
-	for f in $(prefix)/bin/$(machine)-gnat* $(prefix)/bin/$(machine)-gcc; do \
-	   case $$f in \
-	      *$(machine)-gnatemu*) ;; \
-	                        *) rm -f "$$f";; \
-	   esac; \
+	for f in $(prefix)/bin/$(machine)-gnat* $(prefix)/bin/$(machine)-gcc; \
+	do								      \
+	   case $$f in							      \
+	      *$(machine)-gnatemu*) ;;					      \
+	                        *) rm -f "$$f";;			      \
+	   esac;							      \
 	done
 
-	for d in bin lib libexec include share $(machine); do \
-	   if [ -d $$d ]; then \
-	      tar cf - $$d | (cd $(prefix); tar xf -); \
-	   fi \
+	for d in bin lib libexec include share $(machine); do	\
+	   if [ -d $$d ]; then					\
+	      tar cf - $$d | (cd $(prefix); tar xf -);		\
+	   fi							\
 	done
 
 	-rm -rf $(libsubdir)/include-fixed
 	-mkdir -p $(libsubdir)/include-fixed
-	case $(machine) in \
-	   *-lynxos*) ;; \
+	case $(machine) in						 \
+	   *-lynxos*) ;;						 \
 	   *) $(libexecsubdir)/install-tools/mkheaders -v -v $(prefix);; \
         esac
 
-	case `uname` in \
-	*_NT*) \
+	case `uname` in							    \
+	*_NT*)								    \
 	for directory in $(libsubdir)/adalib $(libsubdir)/rts-*/adalib ; do \
-	  if [ -d $${directory} ]; then \
-	    (cd $${directory}; chmod a-w *.ali); \
-	  fi \
-	done;; \
+	  if [ -d $${directory} ]; then					    \
+	    (cd $${directory}; chmod a-w *.ali);			    \
+	  fi								    \
+	done;;								    \
 	esac
 
 # (Mac OS X) Fix up the dyld paths installed in executables and shared
 # libraries to correspond to the actual installation prefix.
-ins-fixup::
+ins-fixup::					\
+  ins-fixup-executables-in-bin			\
+  ins-fixup-executables-in-libexecsubdir	\
+  ins-fixup-shared-library-identification-names	\
+  ins-fixup-shared-library-stubs		\
+  ins-fixup-shared-library-dependent-names
+
+ins-fixup-executables-in-bin:
 	@echo "fixing up executables in $(prefix)/bin"
-	if [ "$(prefix)" != "$(built_prefix)" ]; then			  \
-	    cpp=`find lib -type f -name libstdc++\*.dylib`;		  \
-	    gcc=`find lib -type f -name libgcc_s\*.dylib`;		  \
-	    for ex in `find $(prefix)/bin -type f -perm -0111`; do	  \
-		if [ "`file $$ex | grep Mach-O`" ]; then		  \
-		    echo "fixing $$ex";					  \
-		    install_name_tool					  \
-			 -change					  \
-			 $(built_prefix)/$$cpp				  \
-			 $(prefix)/$$cpp				  \
-			 -change					  \
-			 $(built_prefix)/$$gcc				  \
-			 $(prefix)/$$gcc				  \
-			 $$ex;						  \
-		fi;							  \
-	    done;							  \
+	if [ "$(prefix)" != "$(built_prefix)" ]; then			\
+	    cpp=`find lib -type f -name libstdc++\*.dylib`;		\
+	    gcc=`find lib -type f -name libgcc_s\*.dylib`;		\
+	    for ex in `find $(prefix)/bin -type f -perm -0111`; do	\
+		if [ "`file $$ex | grep Mach-O`" ]; then		\
+		    echo "fixing $$ex";					\
+		    install_name_tool					\
+			-change						\
+			$(built_prefix)/$$cpp				\
+			@rpath/$$cpp					\
+			-change						\
+			$(built_prefix)/$$gcc				\
+			@rpath/$$gcc					\
+			$$ex;						\
+		fi;							\
+	    done;							\
        fi
 
-ins-fixup::
+ins-fixup-executables-in-libexecsubdir:
 	@echo "fixing up executables in $(libexecsubdir)"
-	if [ "$(prefix)" != "$(built_prefix)" ]; then			  \
-	    cpp=`find lib -type f -name libstdc++\*.dylib`;		  \
-	    gcc=`find lib -type f -name libgcc_s\*.dylib`;		  \
-	    for ex in `find $(libexecsubdir) -type f -perm -0111`; do	  \
-		if [ "`file $$ex | grep Mach-O`" ]; then		  \
-		    echo "fixing $$ex";					  \
-		    install_name_tool					  \
-			 -change					  \
-			 $(built_prefix)/$$cpp				  \
-			 $(prefix)/$$cpp				  \
-			 -change					  \
-			 $(built_prefix)/$$gcc				  \
-			 $(prefix)/$$gcc				  \
-			 $$ex;						  \
-		fi;							  \
-	    done;							  \
+	if [ "$(prefix)" != "$(built_prefix)" ]; then			\
+	    cpp=`find lib -type f -name libstdc++\*.dylib`;		\
+	    gcc=`find lib -type f -name libgcc_s\*.dylib`;		\
+	    for ex in `find $(libexecsubdir) -type f -perm -0111`; do	\
+		if [ "`file $$ex | grep Mach-O`" ]; then		\
+		    echo "fixing $$ex";					\
+		    install_name_tool					\
+			-change						\
+			$(built_prefix)/$$cpp				\
+			@rpath/$$cpp					\
+			-change						\
+			$(built_prefix)/$$gcc				\
+			@rpath/$$gcc					\
+			$$ex;						\
+		fi;							\
+	    done;							\
        fi
 
-ins-fixup::
+ins-fixup-shared-library-identification-names:
 	@echo "fixing up shared library identification names"
 	if [ "$(prefix)" != "$(built_prefix)" ]; then			  \
 	    for l in `find $(libdir) -depth 1 -name \*.dylib -type f`; do \
 		if [ "`file $$l | grep 'shared library x86_64'`" ];	  \
 		then							  \
 		    echo "fixing $$l";					  \
-		    install_name_tool -id $$l $$l;			  \
+		    install_name_tool -id @rpath/`basename $$l` $$l;	  \
 		fi;							  \
 	    done;							  \
         fi
@@ -108,7 +116,7 @@ ins-fixup::
 #
 # Couldn't find where this was done in the Makefiles; worked out by
 # reading the log files.
-ins-fixup::
+ins-fixup-shared-library-stubs:
 	@echo "fixing up shared library stubs"
 	if [ "$(prefix)" != "$(built_prefix)" ]; then	\
 	    strip -curx					\
@@ -129,25 +137,25 @@ ins-fixup::
 	    rm libgcc_ext.10.5.dylib_T;			\
         fi
 
-ins-fixup::
+ins-fixup-shared-library-dependent-names:
 	@echo "fixing up shared library dependent names"
-	if [ "$(prefix)" != "$(built_prefix)" ]; then			  \
-	    cpp=`find lib -type f -name libstdc++\*.dylib`;		  \
-	    gcc=`find lib -type f -name libgcc_s\*.dylib`;		  \
-	    for l in `find $(libdir) -name \*.dylib\* -type f`; do	  \
-		if [ "`file $$l | grep 'shared library x86_64'`" ];	  \
-		then							  \
-		    echo "fixing $$l";					  \
-		    install_name_tool					  \
-			 -change					  \
-			 $(built_prefix)/$$cpp				  \
-			 $(prefix)/$$cpp				  \
-			 -change					  \
-			 $(built_prefix)/$$gcc				  \
-			 $(prefix)/$$gcc				  \
-			 $$l;						  \
-		fi;							  \
-	    done;							  \
+	if [ "$(prefix)" != "$(built_prefix)" ]; then			\
+	    cpp=`find lib -type f -name libstdc++\*.dylib`;		\
+	    gcc=`find lib -type f -name libgcc_s\*.dylib`;		\
+	    for l in `find $(libdir) -name \*.dylib\* -type f`; do	\
+		if [ "`file $$l | grep 'shared library x86_64'`" ];	\
+		then							\
+		    echo "fixing $$l";					\
+		    install_name_tool					\
+			 -change					\
+			 $(built_prefix)/$$cpp				\
+			 @rpath/$$cpp					\
+			 -change					\
+			 $(built_prefix)/$$gcc				\
+			 @rpath/$$gcc					\
+			 $$l;						\
+		fi;							\
+	    done;							\
         fi
 
 mkdirs:

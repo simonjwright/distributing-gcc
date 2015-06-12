@@ -25,67 +25,80 @@ ext           =
 ins-all: ins-basic ins-fixup
 
 ins-basic:: mkdirs
-	for f in $(prefix)/bin/$(machine)-gnat* $(prefix)/bin/$(machine)-gcc; do \
-	   case $$f in \
-	      *$(machine)-gnatemu*) ;; \
-	                        *) rm -f "$$f";; \
-	   esac; \
+	for f in $(prefix)/bin/$(machine)-gnat* $(prefix)/bin/$(machine)-gcc; \
+	do								      \
+	   case $$f in							      \
+	      *$(machine)-gnatemu*) ;;					      \
+	                        *) rm -f "$$f";;			      \
+	   esac;							      \
 	done
 
-	for d in bin lib libexec include share $(machine); do \
-	   if [ -d $$d ]; then \
-	      tar cf - $$d | (cd $(prefix); tar xf -); \
-	   fi \
+	for d in bin lib libexec include share $(machine); do	\
+	   if [ -d $$d ]; then					\
+	      tar cf - $$d | (cd $(prefix); tar xf -);		\
+	   fi							\
 	done
 
 	-rm -rf $(libsubdir)/include-fixed
 	-mkdir -p $(libsubdir)/include-fixed
-	case $(machine) in \
-	   *-lynxos*) ;; \
+	case $(machine) in						 \
+	   *-lynxos*) ;;						 \
 	   *) $(libexecsubdir)/install-tools/mkheaders -v -v $(prefix);; \
         esac
 
-	case `uname` in \
-	*_NT*) \
+	case `uname` in							    \
+	*_NT*)								    \
 	for directory in $(libsubdir)/adalib $(libsubdir)/rts-*/adalib ; do \
-	  if [ -d $${directory} ]; then \
-	    (cd $${directory}; chmod a-w *.ali); \
-	  fi \
-	done;; \
+	  if [ -d $${directory} ]; then					    \
+	    (cd $${directory}; chmod a-w *.ali);			    \
+	  fi								    \
+	done;;								    \
 	esac
 
 # (Mac OS X) Fix up the dyld paths installed in executables to
 # correspond to the actual installation prefix.
-ins-fixup::
-	if [ "$(prefix)" != "$(builder_prefix)" ]; then			   \
-	   cpp=`cd $(prefix); find lib -type f -name libstdc++\*.dylib`;  \
-	   gcc=`cd $(prefix); find lib -type f -name libgcc_s\*.dylib`;   \
-	   for ex in `find $(prefix)/bin -name $(machine)-\* -perm -0111`; \
-	   do								   \
-	       if [ "`file $$ex | grep Mach-O`" ]; then			   \
-		   install_name_tool					   \
-			-change						   \
-			$(builder_prefix)/$$cpp				   \
-			$(prefix)/$$cpp					   \
-			-change						   \
-			$(builder_prefix)/$$gcc				   \
-			$(prefix)/$$gcc					   \
-			$$ex;						   \
-	       fi;							   \
-	   done;							   \
-	   for ex in `find $(libexecsubdir) -type f -perm -0111`; do	   \
-	       if [ "`file $$ex | grep Mach-O`" ]; then			   \
-		   install_name_tool					   \
-			-change						   \
-			$(builder_prefix)/$$cpp				   \
-			$(prefix)/$$cpp					   \
-		   	-change						   \
-			$(builder_prefix)/$$gcc				   \
-			$(prefix)/$$gcc					   \
-			$$ex;						   \
-	       fi;							   \
-	   done;							   \
-       fi
+ins-fixup::					\
+  ins-fixup-executables-in-bin			\
+  ins-fixup-executables-in-libexecsubdir
+
+ins-fixup-executables-in-bin:
+	@echo "fixing up executables in $(prefix)/bin"
+	if [ "$(prefix)" != "$(builder_prefix)" ]; then			    \
+	    cpp=`cd $(prefix); find lib -type f -name libstdc++\*.dylib`;   \
+	    gcc=`cd $(prefix); find lib -type f -name libgcc_s\*.dylib`;    \
+	    for ex in `find $(prefix)/bin -name $(machine)-\* -perm -0111`; \
+	    do								    \
+		if [ "`file $$ex | grep Mach-O`" ]; then		    \
+		    echo "fixing $$ex";					    \
+		    install_name_tool					    \
+			-change						    \
+			$(builder_prefix)/$$cpp				    \
+			@rpath/$$cpp					    \
+			-change						    \
+			$(builder_prefix)/$$gcc				    \
+			@rpath/$$gcc					    \
+			$$ex;						    \
+		fi;							    \
+	    done;							    \
+	fi
+
+ins-fixup-executables-in-libexecsubdir:
+	@echo "fixing up executables in $(libexecsubdir)"
+	if [ "$(prefix)" != "$(built_prefix)" ]; then			\
+	    for ex in `find $(libexecsubdir) -type f -perm -0111`; do	\
+		if [ "`file $$ex | grep Mach-O`" ]; then		\
+		     echo "fixing $$ex";				\
+		    install_name_tool					\
+			-change						\
+			$(builder_prefix)/$$cpp				\
+			@rpath/$$cpp					\
+			-change						\
+			$(builder_prefix)/$$gcc				\
+			@rpath/$$gcc					\
+			$$ex;						\
+		fi;							\
+	    done;							\
+	fi
 
 
 mkdirs:

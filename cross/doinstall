@@ -10,13 +10,13 @@
 #                  #
 ####################
 
-version=5.1.0
+version=4.9.3
 machine=arm-eabi
 
 # SJW's preferred build style would be "/opt/gcc-$version", but on the
 # Mac we have to adjust the rpaths, so this longer version is used
 # instead.
-builder_prefix=/usr/local/gnat/$version
+builder_prefix=/usr/local/gnat
 
 prefix=$builder_prefix
 xprefix=""
@@ -265,7 +265,7 @@ cat << EOF
 
    This script is provided to simplify the installation of the
      $machine
-   binary version of the FSF GCC $version Ada environment.
+   binary version of the GNAT GPL $version Ada environment.
 
    This script will ask you how you would like to configure GCC.
    Confirmation is required before any write action is taken.

@@ -5,16 +5,20 @@ SHELL=/bin/sh
 # the directories by hand are greater than those allowed in the
 # configuration script.
 
-version       = 5.1.0
-machine       = arm-eabi
-
 # We need to know where the builder compiler was, so that we can
 # adjust the dyld paths for the installed location if different.
-#
-# This is SJW's preferred style.
-builder_prefix  = /opt/gcc-$(version)
+builder_prefix  = /usr/local/gnat
 
+# This is where the compiler is to be installed
 prefix        = $(builder_prefix)
+
+# We need to know how to construct subdirectory names
+version       = 1.2.3
+machine       = arm-eabi
+
+#####################################################################
+# No need to change anything below
+
 gcc_lib       = gcc
 libsubdir     = $(prefix)/lib/$(gcc_lib)/$(machine)/$(version)
 libexecsubdir = $(prefix)/libexec/$(gcc_lib)/$(machine)/$(version)
@@ -54,38 +58,53 @@ ins-basic:: mkdirs
 	done;; \
 	esac
 
-# (Mac OS X) Fix up the dyld paths installed in executables to
-# correspond to the actual installation prefix.
+# (Mac OS X) Fix up the dyld paths installed in executables and shared
+# libraries to correspond to the actual installation prefix.
+
+# The libraries, references to which we need to change. Note, we're in
+# the distribution directory, so lib is an immediate subdirectory.
+#
+# '-depth 1' in case the compiler was built with multilib, and there's
+# an i386/ subdirectory.
+cpp = $(shell find lib -depth 1 -type f -name libstdc++\*.dylib)
+gcc = $(shell find lib -depth 1 -type f -name libgcc_s\*.dylib)
+
 ins-fixup::
-	if [ "$(prefix)" != "$(builder_prefix)" ]; then			   \
-	   cpp=`cd $(prefix); find lib -type f -name libstdc++\*.dylib`;  \
-	   gcc=`cd $(prefix); find lib -type f -name libgcc_s\*.dylib`;   \
-	   for ex in `find $(prefix)/bin -name $(machine)-\* -perm -0111`; \
-	   do								   \
-	       if [ "`file $$ex | grep Mach-O`" ]; then			   \
-		   install_name_tool					   \
-			-change						   \
-			$(builder_prefix)/$$cpp				   \
-			$(prefix)/$$cpp					   \
-			-change						   \
-			$(builder_prefix)/$$gcc				   \
-			$(prefix)/$$gcc					   \
-			$$ex;						   \
-	       fi;							   \
-	   done;							   \
-	   for ex in `find $(libexecsubdir) -type f -perm -0111`; do	   \
-	       if [ "`file $$ex | grep Mach-O`" ]; then			   \
-		   install_name_tool					   \
-			-change						   \
-			$(builder_prefix)/$$cpp				   \
-			$(prefix)/$$cpp					   \
-		   	-change						   \
-			$(builder_prefix)/$$gcc				   \
-			$(prefix)/$$gcc					   \
-			$$ex;						   \
-	       fi;							   \
-	   done;							   \
-       fi
+	@echo "fixing up executables in $(prefix)/bin"
+	if [ "$(prefix)" != "$(builder_prefix)" ]; then			    \
+	    for ex in `find $(prefix)/bin -name $(machine)-\* -perm -0111`; \
+	    do								    \
+		if [ "`file $$ex | grep Mach-O`" ]; then		    \
+		    echo "fixing $$ex";					    \
+		    install_name_tool					    \
+			-change						    \
+			$(builder_prefix)/$(cpp)			    \
+			$(prefix)/$(cpp)				    \
+			-change						    \
+			$(builder_prefix)/$(gcc)			    \
+			$(prefix)/$(gcc)				    \
+			$$ex;						    \
+		fi;							    \
+	    done;							    \
+	fi
+
+ins-fixup::
+	@echo "fixing up executables in $(libexecsubdir)"
+	if [ "$(prefix)" != "$(built_prefix)" ]; then			\
+	    for ex in `find $(libexecsubdir) -type f -perm -0111`; do	\
+	       if [ "`file $$ex | grep Mach-O`" ]; then			\
+		   echo "fixing $$ex";					\
+		   install_name_tool					\
+		       -change						\
+		       $(builder_prefix)/$(cpp)				\
+		       $(prefix)/$(cpp)					\
+		       -change						\
+		       $(builder_prefix)/$(gcc)				\
+		       $(prefix)/$(gcc)					\
+		       $$ex;						\
+	       fi;							\
+	    done;							\
+        fi
 
 
 mkdirs:

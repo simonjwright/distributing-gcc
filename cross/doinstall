@@ -217,7 +217,7 @@ EOF
 
          cat << EOF
    On OS X, the debugger needs to be codesigned in order to access
-   the priviledges required for debugging.
+   the privileges required for debugging.
 
    Please refer to the procedure documented in the Mac OS Topics
    chapter of the GNAT User's Guide, section Codesigning the
@@ -241,7 +241,7 @@ EOF
    commands enable you to do this:
       PATH=$prefix/bin:\$PATH; export PATH  (Bourne shell)
       setenv PATH $prefix/bin:\$PATH        (C shell)
-   Thank you for installing FSF GCC $version for $machine!
+   Thank you for installing GNAT GPL 2015 for $machine!
 
 EOF
 }
@@ -265,7 +265,7 @@ cat << EOF
 
    This script is provided to simplify the installation of the
      $machine
-   binary version of the GNAT GPL $version Ada environment.
+   binary version of the GNAT GPL 2015 Ada environment.
 
    This script will ask you how you would like to configure GCC.
    Confirmation is required before any write action is taken.

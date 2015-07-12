@@ -29,33 +29,35 @@ ext           =
 ins-all: ins-basic ins-fixup
 
 ins-basic:: mkdirs
-	for f in $(prefix)/bin/$(machine)-gnat* $(prefix)/bin/$(machine)-gcc; do \
-	   case $$f in \
-	      *$(machine)-gnatemu*) ;; \
-	                        *) rm -f "$$f";; \
-	   esac; \
+	for f in $(prefix)/bin/$(machine)-gnat*		\
+	    $(prefix)/bin/$(machine)-gcc; do		\
+	    case $$f in					\
+	        *$(machine)-gnatemu*) ;;		\
+	                           *) rm -f "$$f";;	\
+	    esac;					\
 	done
 
-	for d in bin lib libexec include share $(machine); do \
-	   if [ -d $$d ]; then \
-	      tar cf - $$d | (cd $(prefix); tar xf -); \
-	   fi \
+	for d in bin lib libexec include share $(machine); do	\
+	   if [ -d $$d ]; then					\
+	      tar cf - $$d | (cd $(prefix); tar xf -);		\
+	   fi							\
 	done
 
 	-rm -rf $(libsubdir)/include-fixed
 	-mkdir -p $(libsubdir)/include-fixed
-	case $(machine) in \
-	   *-lynxos*) ;; \
-	   *) $(libexecsubdir)/install-tools/mkheaders -v -v $(prefix);; \
+	case $(machine) in						  \
+	    *-lynxos*) ;;						  \
+	    *) $(libexecsubdir)/install-tools/mkheaders -v -v $(prefix);; \
         esac
 
-	case `uname` in \
-	*_NT*) \
-	for directory in $(libsubdir)/adalib $(libsubdir)/rts-*/adalib ; do \
-	  if [ -d $${directory} ]; then \
-	    (cd $${directory}; chmod a-w *.ali); \
-	  fi \
-	done;; \
+	case `uname` in						\
+	    *_NT*)						\
+	    for directory in $(libsubdir)/adalib		\
+		$(libsubdir)/rts-*/adalib ; do			\
+		if [ -d $${directory} ]; then			\
+		    (cd $${directory}; chmod a-w *.ali);	\
+		fi						\
+	    done;;						\
 	esac
 
 # (Mac OS X) Fix up the dyld paths installed in executables and shared
@@ -66,6 +68,8 @@ ins-basic:: mkdirs
 #
 # '-depth 1' in case the compiler was built with multilib, and there's
 # an i386/ subdirectory.
+# In a native install, the dylibs concerned are in $distribution/lib; but
+# in a cross install, they'll be in $prefix/lib.
 cpp = $(shell cd $(prefix); find lib -depth 1 -type f -name libstdc++\*.dylib)
 gcc = $(shell cd $(prefix); find lib -depth 1 -type f -name libgcc_s\*.dylib)
 

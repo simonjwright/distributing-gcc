@@ -13,10 +13,8 @@
 version=5.1.0
 machine=arm-eabi
 
-# SJW's preferred build style would be "/opt/gcc-$version", but on the
-# Mac we have to adjust the rpaths, so this longer version is used
-# instead.
-builder_prefix=/usr/local/gnat/$version
+# SJW's preferred build style.
+builder_prefix=/opt/gcc-$version
 
 prefix=$builder_prefix
 xprefix=""

@@ -90,7 +90,6 @@ ask_base_prefix() {
    cat << EOF
 
     In which directory do you want to install FSF GCC $version for $machine?
-    (it's strongly recommended not to use a longer path than the default)
         [$prefix]:
 EOF
     read ans_prefix

@@ -12,6 +12,7 @@
 
 version=4.9.3
 machine=arm-eabi
+year=2015
 
 # SJW's preferred build style would be "/opt/gcc-$version", but on the
 # Mac we have to adjust the rpaths, so this longer version is used
@@ -91,8 +92,7 @@ ask_base_prefix() {
 
    cat << EOF
 
-    In which directory do you want to install FSF GCC $version for $machine?
-    (it's strongly recommended not to use a longer path than the default)
+    In which directory do you want to install GNAT GPL $year for $machine?
         [$prefix]:
 EOF
     read ans_prefix
@@ -211,37 +211,18 @@ EOF
 
    rm -f $tmpvalue
 
-   case $machine in
-      *darwin*)
-         clear
-
-         cat << EOF
-   On OS X, the debugger needs to be codesigned in order to access
-   the privileges required for debugging.
-
-   Please refer to the procedure documented in the Mac OS Topics
-   chapter of the GNAT User's Guide, section Codesigning the
-   Debugger. This procedure should be applied after the FSF GCC
-   install has completed.
-
-   Press Enter to continue.
-EOF
-
-         read carryon
-         ;;
-      *) clear ;;
-   esac
+   clear
 
    cat << EOF
 
 
-   FSF GCC $version for $machine is now installed. To launch it, you must put
+   GNAT GPL $year for $machine is now installed. To launch it, you must put
       $prefix/bin
    in front of your PATH environment variable. The following
    commands enable you to do this:
       PATH=$prefix/bin:\$PATH; export PATH  (Bourne shell)
       setenv PATH $prefix/bin:\$PATH        (C shell)
-   Thank you for installing GNAT GPL 2015 for $machine!
+   Thank you for installing GNAT GPL $year for $machine!
 
 EOF
 }
@@ -265,7 +246,7 @@ cat << EOF
 
    This script is provided to simplify the installation of the
      $machine
-   binary version of the GNAT GPL 2015 Ada environment.
+   binary version of the GNAT GPL $year Ada environment.
 
    This script will ask you how you would like to configure GCC.
    Confirmation is required before any write action is taken.
@@ -359,7 +340,7 @@ clear
 cat << EOF
 
 
-   FSF GCC $version for $machine is now about to be installed in
+   GNAT GPL $year for $machine is now about to be installed in
       $prefix.
    Type 'Y' if you want to proceed with installation or any other key
    if you wish to abort.

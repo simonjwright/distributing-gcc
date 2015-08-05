@@ -28,6 +28,8 @@ http://docs.adacore.com/gnat_ugx-docs/html/gnat_ugx/gnat_ugx.html.
 
 Note that the cross-compiler is supplied with the Ada Runtime Systems
 and examples supplied with the Linux version. See the "STM32F4 GNAT
-Run Time Systems" project[1] for alternatives.
+Run Time Systems" project[1] for alternatives (if not found, see the
+"Cortex GNAT Run Time Systems" project[2] - the new location).
 
-[1] https://sourceforge.net/projects/stm32f4-gnat-rts/.
+[1] https://sourceforge.net/projects/stm32f4-gnat-rts/
+[2] https://sourceforge.net/projects/cortex-gnat-rts/

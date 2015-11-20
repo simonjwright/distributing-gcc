@@ -8,7 +8,7 @@ SHELL=/bin/sh
 # Variables set up by doinstall
 version       = 5.1.0
 machine       = x86_64-apple-darwin13
-built_prefix  = /opt/gcc-(version)
+built_prefix  = /opt/gcc-$(version)
 prefix        = $(built_prefix)
 
 # Variables that don't need to be changed

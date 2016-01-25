@@ -27,7 +27,5 @@ See also the GNAT User’s Guide Supplement for Cross Platforms at
 http://docs.adacore.com/gnat_ugx-docs/html/gnat_ugx/gnat_ugx.html.
 
 Note that the cross-compiler is supplied WITHOUT AN ADA RUN TIME
-SYSTEM OR EXAMPLES. See the "STM32F4 GNAT Run Time Systems" project at
-https://sourceforge.net/projects/stm32f4-gnat-rts/ (or, if it has
-migrated to its new name, the "Cortex GNAT Run Time Systems" project
-at https://sourceforge.net/projects/cortex-gnat-rts/).
+SYSTEM OR EXAMPLES. See the "Cortex GNAT Run Time Systems" project at
+https://sourceforge.net/projects/cortex-gnat-rts/.

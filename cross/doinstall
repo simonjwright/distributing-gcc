@@ -10,7 +10,11 @@
 #                  #
 ####################
 
-version=5.1.0
+# For this build, the GCC ARM Embedded compiler reports itself as
+# 5.2.1; I built against 5.2.0. I reckon this is a good bet, because
+# ARM won't have touched any of the Ada sources.
+version=5.2.1
+host_version=5.2.0
 machine=arm-eabi
 
 # SJW's preferred build style.
@@ -295,6 +299,9 @@ EOF
     do
        ask_base_prefix
        if "$prefix"/bin/gcc --version 2>/dev/null | grep -q $version; then
+          break;
+       fi
+       if "$prefix"/bin/gcc --version 2>/dev/null | grep -q $host_version; then
           break;
        fi
        # not the correct version

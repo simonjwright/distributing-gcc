@@ -10,11 +10,11 @@
 #                  #
 ####################
 
-# For this build, the GCC ARM Embedded compiler reports itself as
-# 5.2.1; I built against 5.2.0. I reckon this is a good bet, because
-# ARM won't have touched any of the Ada sources.
-version=5.2.1
-host_version=5.2.0
+# Normally, $version and $host_version would be the same; the
+# different names were because of the GCC ARM Embedded compiler which
+# reports itself as 5.2.1 but was built against 5.2.0.
+version=6.1.0
+host_version=6.1.0
 machine=arm-eabi
 
 # SJW's preferred build style.

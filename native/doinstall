@@ -1,7 +1,7 @@
 #! /bin/sh
 #
 # GCC binary distribution installation script
-# Copyright (c) 2003-2013, 2015, Free Software Foundation
+# Copyright (c) 2003-2013, 2015, 2016 Free Software Foundation
 #
 
 ####################
@@ -10,7 +10,7 @@
 #                  #
 ####################
 
-version=5.2.0
+version=6.1.0
 machine=x86_64-apple-darwin15
 
 # SJW's preferred build style.
@@ -351,7 +351,7 @@ clear
 cat << EOF
 
 
-   FSF GCC $bsever is now about to be installed in
+   FSF GCC $version is now about to be installed in
       $prefix.
    Type 'Y' if you want to proceed with installation or any other key
    if you wish to abort.

@@ -10,14 +10,11 @@
 #                  #
 ####################
 
-version=4.9.3
+version=4.9.4
 machine=arm-eabi
-year=2015
+year=2016
 
-# SJW's preferred build style would be "/opt/gcc-$version", but on the
-# Mac we have to adjust the rpaths, so this longer version is used
-# instead.
-builder_prefix=/usr/local/gnat
+builder_prefix=/opt/gnat-gpl-2016
 
 prefix=$builder_prefix
 xprefix=""

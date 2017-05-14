@@ -10,7 +10,7 @@
 #                  #
 ####################
 
-version=6.1.0
+version=7.1.0
 machine=x86_64-apple-darwin15
 
 # SJW's preferred build style.
@@ -213,7 +213,7 @@ EOF
 
          cat << EOF
    On OS X, the debugger needs to be codesigned in order to access
-   the priviledges required for debugging.
+   the privileges required for debugging.
 
    Please refer to the procedure documented in the Mac OS Topics
    chapter of the GNAT User's Guide, section Codesigning the

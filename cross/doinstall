@@ -13,9 +13,16 @@
 # Normally, $version and $host_version would be the same; the
 # different names were because of the GCC ARM Embedded compiler which
 # reports itself as 5.2.1 but was built against 5.2.0.
-version=6.1.0
-host_version=6.1.0
+version=7.1.0
+host_version=7.1.0
 machine=arm-eabi
+
+# We need to know where the host compiler was installed so that we can
+# make any necessary adjustments to dylib paths in the cross tools
+# built with that compiler. If that compiler was installed at
+# /foo/bar, the cross tools built with it will expect to find dylibs
+# at e.g. /foo/bar/lib. If the user has installed their copy of the
+# host compiler at /bar/baz those dylibs will now be at /bar/baz/lib.
 
 # SJW's preferred build style.
 builder_prefix=/opt/gcc-$version
@@ -36,10 +43,13 @@ command_not_found () {
     cmd="$1"
     cat << EOF
 
-The $cmd command could not be found on your PATH. It is required to have
-it in your PATH in order to install successfully $long_qualifier. Please
-add the directory were $cmd can be found on your PATH or contact your
-system administrator to have it installed in a standard location.
+The $cmd command could not be found on your PATH. It is required to
+have it in your PATH in order to successfully install GCC $version for
+$machine.
+
+Please add the directory where $cmd can be found to your PATH or
+contact your system administrator to have it installed in a standard
+location.
 
 
 EOF
@@ -62,25 +72,6 @@ check_env () {
             command_not_found $cmd
         fi
     done
-}
-
-################################
-#                              #
-# Adds the correct description #
-#                              #
-################################
-
-set_qualifier () {
-    case $gnatver in
-    *w|*a*|[0-9].[0-9].[0-9])
-        qualifier="Pro"
-        long_qualifier="GCC Pro"
-        ;;
-    [0-9][0-9][0-9][0-9]*)
-        qualifier="GPL"
-        long_qualifier="GCC GPL Edition"
-        ;;
-    esac
 }
 
 ###########################################
@@ -217,8 +208,8 @@ EOF
          clear
 
          cat << EOF
-   On OS X, the debugger needs to be codesigned in order to access
-   the priviledges required for debugging.
+   On macOS, the debugger needs to be codesigned in order to access
+   the privileges required for debugging.
 
    Please refer to the procedure documented in the Mac OS Topics
    chapter of the GNAT User's Guide, section Codesigning the
@@ -253,7 +244,6 @@ EOF
 #                    #
 ######################
 
-#set_qualifier
 check_env
 
 # This avoids some problems when cd prints the new directory when CDPATH

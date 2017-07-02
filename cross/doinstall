@@ -10,11 +10,11 @@
 #                  #
 ####################
 
-version=4.9.4
+version=6.3.1
 machine=arm-eabi
-year=2016
+year=2017
 
-builder_prefix=/opt/gnat-gpl-2016
+builder_prefix=/opt/gnat-gpl-2017
 
 prefix=$builder_prefix
 xprefix=""

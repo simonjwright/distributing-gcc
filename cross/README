@@ -13,11 +13,11 @@ confirmation, you can interrupt it by pressing Ctrl-C.
 The information you will be requested to provide is very simple. GNAT
 needs only an installation directory, which for this cross-compiler
 MUST be the same as that of the corresponding native compiler, and for
-some cross targets, the installation directory of the target operating
-system. The installation script writes some temporary files and a
-complete report of its actions (install.log) in the current directory
-by default; this can be overridden by setting the TMPDIR environment
-variable to an appropriate writable directory.
+some cross targets (but not this one), the installation directory of
+the target operating system. The installation script writes some
+temporary files and a complete report of its actions (install.log) in
+the current directory by default; this can be overridden by setting
+the TMPDIR environment variable to an appropriate writable directory.
 
 USE
 
@@ -27,9 +27,7 @@ See also the GNAT User’s Guide Supplement for Cross Platforms at
 http://docs.adacore.com/gnat_ugx-docs/html/gnat_ugx/gnat_ugx.html.
 
 Note that the cross-compiler is supplied with the Ada Runtime Systems
-and examples supplied with the Linux version. See the "STM32F4 GNAT
-Run Time Systems" project[1] for alternatives (if not found, see the
-"Cortex GNAT Run Time Systems" project[2] - the new location).
+and examples supplied with the Linux version. See the "Cortex GNAT Run
+Time Systems"[1] for alternatives.
 
-[1] https://sourceforge.net/projects/stm32f4-gnat-rts/
-[2] https://sourceforge.net/projects/cortex-gnat-rts/
+[1] https://sourceforge.net/projects/cortex-gnat-rts/

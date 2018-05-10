@@ -10,13 +10,13 @@
 #                  #
 ####################
 
-version=7.1.0
+version=8.1.0
 machine=x86_64-apple-darwin15
 
 # SJW's preferred build style.
-built_prefix="/opt/gcc-$version"
+built_prefix="/Volumes/Miscellaneous/tmp/opt/gcc-8.1.0"
 
-prefix=$built_prefix
+prefix=/opt/gcc-8.1.0
 xprefix=""
 : ${TMPDIR:=`pwd`}
 tmpout="${TMPDIR}/install.log"

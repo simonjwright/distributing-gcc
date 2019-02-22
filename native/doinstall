@@ -10,13 +10,14 @@
 #                  #
 ####################
 
-version=8.1.0
+version=9.0.1
 machine=x86_64-apple-darwin15
 
-# SJW's preferred build style.
-built_prefix="/Volumes/Miscellaneous/tmp/opt/gcc-8.1.0"
+# Where the compiler was installed while in development
+built_prefix="/Volumes/Miscellaneous/tmp/opt/gcc-9.0.1"
 
-prefix=/opt/gcc-8.1.0
+# SJW's preferred style.
+prefix=/opt/gcc-9.0.1
 xprefix=""
 : ${TMPDIR:=`pwd`}
 tmpout="${TMPDIR}/install.log"

@@ -26,8 +26,8 @@ GDB
 
 gdb has to be 'code-signed' (unless you're willing to run it as root!)
 
-Instructions are at
-https://gcc.gnu.org/onlinedocs/gnat_ugn/Codesigning-the-Debugger.html
+See https://forward-in-code.blogspot.com/2018/11/mojave-vs-gdb.html
+(section "Security").
 
 EXAMPLES
 

@@ -22,10 +22,10 @@ variable to an appropriate writable directory.
 USE
 
 Using GNAT is documented in the GNAT User's Guide available at
-https://gcc.gnu.org/onlinedocs/gnat_ugn/.
+https://docs.adacore.com/live/wave/gnat_ugn/html/gnat_ugn/gnat_ugn.html.
 See also the GNAT User’s Guide Supplement for Cross Platforms at
-http://docs.adacore.com/gnat_ugx-docs/html/gnat_ugx/gnat_ugx.html.
+https://docs.adacore.com/live/wave/gnat_ugx/html/gnat_ugx/gnat_ugx.html.
 
-Note that the cross-compiler is supplied WITHOUT AN ADA RUN TIME
-SYSTEM OR EXAMPLES. See the "Cortex GNAT Run Time Systems" project at
-https://sourceforge.net/projects/cortex-gnat-rts/.
+The cross-compiler is supplied with runtimes and examples from the
+Linux arm-elf distribution. See also the "Cortex GNAT Run Time
+Systems" project at https://github.com/simonjwright/cortex-gnat-rts.

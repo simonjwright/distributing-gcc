@@ -10,11 +10,13 @@
 #                  #
 ####################
 
+suite_name="GNAT CE 2020"
+
 # Normally, $version and $host_version would be the same; the
 # different names were because of the GCC ARM Embedded compiler which
 # reports itself as 5.2.1 but was built against 5.2.0.
-version=10.1.0
-host_version=10.1.0
+version=8.4.1
+host_version=8.4.1
 machine=arm-eabi
 
 # We need to know where the host compiler was installed so that we can
@@ -24,13 +26,15 @@ machine=arm-eabi
 # at e.g. /foo/bar/lib. If the user has installed their copy of the
 # host compiler at /bar/baz those dylibs will now be at /bar/baz/lib.
 
-# SJW's preferred build style.
-builder_prefix=/opt/gcc-$version
-# Actual installation while update development
-builder_prefix=/Volumes/Miscellaneous/tmp/opt/gcc-10.1.0
+builder_prefix=/opt/gnat-ce-2020
+
+# This is where the host compiler libraries were built, and where they
+# are of course *not* on our machine. We'll want to edit any of our
+# executables (we don't create any libraries ourselves).
+builder_lib_prefix=/gnatmail/sandbox/a2c2/x86_64-darwin/gcc-c/pkg
 
 # Default installation prefix
-prefix=/opt/gcc-$version
+prefix=/opt/gnat-ce-2020
 xprefix=""
 : ${TMPDIR:=`pwd`}
 tmpout="${TMPDIR}/install.log"
@@ -87,7 +91,7 @@ ask_base_prefix() {
 
    cat << EOF
 
-    In which directory do you want to install FSF GCC $version for $machine?
+    In which directory do you want to install $version for $machine?
         [$prefix]:
 EOF
     read ans_prefix
@@ -169,7 +173,8 @@ EOF
          prefix=$prefix \
          machine=$machine \
          version=$version \
-         builder_prefix=$builder_prefix 2>&1; \
+         builder_prefix=$builder_prefix \
+         builder_lib_prefix=$builder_lib_prefix 2>&1; \
          echo $? > $tmpvalue ) | tee $tmpout
 
    # Check that installation was OK
@@ -216,8 +221,8 @@ EOF
 
    Please refer to the procedure documented in the Mac OS Topics
    chapter of the GNAT User's Guide, section Codesigning the
-   Debugger. This procedure should be applied after the FSF GCC
-   install has completed.
+   Debugger. This procedure should be applied after the install
+    has completed.
 
    Press Enter to continue.
 EOF
@@ -230,13 +235,13 @@ EOF
    cat << EOF
 
 
-   FSF GCC $version for $machine is now installed. To launch it, you must put
+   $suite_name for $machine is now installed. To launch it, you must put
       $prefix/bin
    in front of your PATH environment variable. The following
    commands enable you to do this:
       PATH=$prefix/bin:\$PATH; export PATH  (Bourne shell)
       setenv PATH $prefix/bin:\$PATH        (C shell)
-   Thank you for installing FSF GCC $version for $machine!
+   Thank you for installing $suite_name for $machine!
 
 EOF
 }
@@ -259,7 +264,7 @@ cat << EOF
 
    This script is provided to simplify the installation of the
      $machine
-   binary version of the FSF GCC $version Ada environment.
+   binary version of the $suite_name Ada environment.
 
    This script will ask you how you would like to configure GCC.
    Confirmation is required before any write action is taken.
@@ -300,7 +305,7 @@ EOF
        # not the correct version
        cat << EOF
 
-    The target base directory doesn't appear to hold GCC $version.
+    The target base directory $prefix doesn't appear to hold GCC $version.
     Please enter another directory name.
 EOF
     done
@@ -356,7 +361,7 @@ clear
 cat << EOF
 
 
-   FSF GCC $version for $machine is now about to be installed in
+   $suite_name for $machine is now about to be installed in
       $prefix.
    Type 'Y' if you want to proceed with installation or any other key
    if you wish to abort.

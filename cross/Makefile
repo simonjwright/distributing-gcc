@@ -9,6 +9,10 @@ SHELL=/bin/sh
 # adjust the dyld paths for the installed location if different.
 builder_prefix  = /opt/gcc-5.1.0
 
+# If we're building for GNAT CE, the host libraries have installed
+# names that refer to AdaCore's build machine.
+builder_lib_prefix = $(builder_prefix)
+
 # This is where the compiler is to be installed
 prefix        = $(builder_prefix)
 
@@ -75,40 +79,36 @@ gcc = $(shell cd $(prefix); find lib -depth 1 -type f -name libgcc_s\*.dylib)
 
 ins-fixup::
 	@echo "fixing up executables in $(prefix)/bin"
-	if [ "$(prefix)" != "$(builder_prefix)" ]; then			    \
-	    for ex in `find $(prefix)/bin -name $(machine)-\* -perm -0111`; \
-	    do								    \
-		if [ "`file $$ex | grep Mach-O`" ]; then		    \
-		    echo "fixing $$ex";					    \
-		    install_name_tool					    \
-			-change						    \
-			$(builder_prefix)/$(cpp)			    \
-			$(prefix)/$(cpp)				    \
-			-change						    \
-			$(builder_prefix)/$(gcc)			    \
-			$(prefix)/$(gcc)				    \
-			$$ex;						    \
-		fi;							    \
-	    done;							    \
-	fi
+	for ex in `find $(prefix)/bin -name $(machine)-\* -perm -0111`;	\
+	do								\
+	    if [ "`file $$ex | grep Mach-O`" ]; then			\
+		echo "fixing $$ex";					\
+		install_name_tool					\
+		    -change						\
+		    $(builder_lib_prefix)/$(cpp)			\
+		    $(prefix)/$(cpp)					\
+		    -change						\
+		    $(builder_lib_prefix)/$(gcc)			\
+		    $(prefix)/$(gcc)					\
+		    $$ex;						\
+	    fi;								\
+	done
 
 ins-fixup::
 	@echo "fixing up executables in $(libexecsubdir)"
-	if [ "$(prefix)" != "$(built_prefix)" ]; then			\
-	    for ex in `find $(libexecsubdir) -type f -perm -0111`; do	\
-	       if [ "`file $$ex | grep Mach-O`" ]; then			\
-		   echo "fixing $$ex";					\
-		   install_name_tool					\
-		       -change						\
-		       $(builder_prefix)/$(cpp)				\
-		       $(prefix)/$(cpp)					\
-		       -change						\
-		       $(builder_prefix)/$(gcc)				\
-		       $(prefix)/$(gcc)					\
-		       $$ex;						\
-	       fi;							\
-	    done;							\
-        fi
+	for ex in `find $(libexecsubdir) -type f -perm -0111`; do	\
+	   if [ "`file $$ex | grep Mach-O`" ]; then			\
+	       echo "fixing $$ex";					\
+	       install_name_tool					\
+		   -change						\
+		   $(builder_lib_prefix)/$(cpp)			\
+		   $(prefix)/$(cpp)					\
+		   -change						\
+		   $(builder_lib_prefix)/$(gcc)			\
+		   $(prefix)/$(gcc)					\
+		   $$ex;						\
+	   fi;							\
+	done
 
 
 mkdirs:

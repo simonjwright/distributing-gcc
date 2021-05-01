@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+    <title>SUMMARY for GCC-11.1.0 </title>
+</head>
+<body>
+
+<h1>Summary for GCC-11.1.0</h1>
+
+<p>The compiler is now installed under <tt>/opt/gcc-11.1.0</tt>.
+
+<h2>Setting PATH</h2>
+
+<p>To launch it, you must
+put <tt>/opt/gcc-11.1.0/bin</tt> in front of your <tt>PATH</tt>
+environment variable. The following command enables you to do this in
+both <tt>bash</tt> and <tt>zsh</tt>:
+
+<pre>
+export PATH=/opt/gcc-11.1.0/bin:$PATH</tt>
+</pre>
+
+<p>&nbsp;
+
+<h2>Running on Mojave or later</h2>
+
+<p>Set the following environment variable:
+
+<pre>
+export SDKROOT=$(xcrun --show-sdk-path)
+</pre>
+
+<p>&nbsp;
+
+<h2>Installing GDB</h2>
+
+<p><code>gdb</code> has to be &lsquo;code-signed&rsquo; (unless you&rsquo;re willing to run it as root!) and under Sierra and later macOS releases there are additional steps that have to be taken.
+
+<p>For El Capitan, see <a href="https://gcc.gnu.org/onlinedocs/gnat_ugn/Codesigning-the-Debugger.html">here</a>.
+
+<p>For Sierra, and High Sierra, see <a href="http://blog.adacore.com/gnat-on-macos-sierra">here</a>; in the case of High Sierra, the 10.12.1 paragraph refers.
+
+<p>For Mojave, Catalina and Big Sur, see <a href="https://forward-in-code.blogspot.com/2018/11/mojave-vs-gdb.html">here</a>.
+
+</body>
+</html>

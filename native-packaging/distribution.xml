@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<installer-gui-script minSpecVersion="1">
+    <welcome file="welcome.html" mime-type="text/html"/>
+    <readme file="readme.html" mime-type="text/html"/>
+    <license file="license.html" mime-type="text/html"/>
+    <conclusion file="conclusion.html" mime-type="text/html"/>
+    <pkg-ref id="gcc-x86_64-apple-darwin15"/>
+    <options customize="never" require-scripts="false"/>
+    <choices-outline>
+        <line choice="default">
+            <line choice="gcc-x86_64-apple-darwin15"/>
+        </line>
+    </choices-outline>
+    <choice id="default"/>
+    <choice id="gcc-x86_64-apple-darwin15" visible="false">
+        <pkg-ref id="gcc-x86_64-apple-darwin15"/>
+    </choice>
+    <pkg-ref id="gcc-x86_64-apple-darwin15" version="11.1.0" onConclusion="none">gcc-11.1.0-x86_64-apple-darwin15.pkg</pkg-ref>
+</installer-gui-script>

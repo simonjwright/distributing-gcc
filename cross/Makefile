@@ -94,7 +94,7 @@ ins-fixup::
 
 ins-fixup::
 	@echo "fixing up executables in $(libexecsubdir)"
-	if [ "$(prefix)" != "$(built_prefix)" ]; then			\
+	if [ "$(prefix)" != "$(builder_prefix)" ]; then			\
 	    for ex in `find $(libexecsubdir) -type f -perm -0111`; do	\
 	       if [ "`file $$ex | grep Mach-O`" ]; then			\
 		   echo "fixing $$ex";					\

@@ -13,8 +13,8 @@
 # Normally, $version and $host_version would be the same; the
 # different names were because of the GCC ARM Embedded compiler which
 # reports itself as 5.2.1 but was built against 5.2.0.
-version=10.1.0
-host_version=10.1.0
+version=11.1.0
+host_version=11.1.0
 machine=arm-eabi
 
 # We need to know where the host compiler was installed so that we can
@@ -27,7 +27,7 @@ machine=arm-eabi
 # SJW's preferred build style.
 builder_prefix=/opt/gcc-$version
 # Actual installation while update development
-builder_prefix=/Volumes/Miscellaneous/tmp/opt/gcc-10.1.0
+# builder_prefix=/Volumes/Miscellaneous1/arm/gcc-11.1.0
 
 # Default installation prefix
 prefix=/opt/gcc-$version

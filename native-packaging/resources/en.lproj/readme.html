@@ -1,49 +1,42 @@
 <html lang="en">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
-    <title>README for GCC-11.1.0 </title>
+    <title>README for GNAT-CE-2021 </title>
 </head>
 <body>
 
-<h1>README for GCC-11.1.0</h1>
+<h1>README for GNAT-CE-2021</h1>
 
-<p>This is GCC 11.1.0 built on Mac OS X El Capitan (10.11, Darwin 15), with Xcode 8.2.1.
+<p>This is GNAT CE 2021 built on Mac OS X El Capitan (10.11, Darwin
+15), with Xcode 8.2.1.
 
 <p>Also runs on macOS versions up to Big Sur (11, Darwin 20).
 
-<p><b>Unlike previous GCC packages for macOS, this package installs at a fixed location: <tt>/opt/gcc-11.1.0</tt></b>.
+<p><b>Unlike previous GCC packages for macOS, this package installs at
+a fixed location: <tt>/opt/gnat-ce-2021</tt></b>.
 
-<p>Compilers included: Ada, C, C++, Objective C, Objective C++, Fortran.
+<p>Compilers included: Ada, C, C++.
 
-<p>Tools included (all except GDB at version 21.0.0 and with the <a href="http://www.gnu.org/licenses/gcc-exception-faq.html">Runtime Library Exception</a>):
-
-<ul>
-
-<li>AUnit from <a href="https://github.com/AdaCore/aunit">https://github.com/AdaCore/aunit.</a>
-
-<li>GNATCOLL from:
+<p>Tools included (all under GPL v3),
+from <a href="https://www.adacore.com/community">AdaCore's download
+site</a> except as noted.
 
 <ul>
 
-<li><a href="https://github.com/AdaCore/gnatcoll-core">https://github.com/AdaCore/gnatcoll-core.</a>
+<li>AUnit
 
-<li><a href="https://github.com/AdaCore/gnatcoll-bindings">https://github.com/AdaCore/gnatcoll-bindings.</a>
+<li>GNATCOLL (except for GNATCOLL-DB, from <a href="https://github.com/AdaCore/gnatcoll-db">AdaCore's Github</a> at v21.0.0).
 
-<li><a href="https://github.com/AdaCore/gnatcoll-db">https://github.com/AdaCore/gnatcoll-db.</a>
+<li>Gprbuild
 
-</ul>
+<li>Langkit
 
-<li>Gprbuild from <a href="https://github.com/AdaCore/gprbuild">https://github.com/AdaCore/gprbuild.</a>
+<li>Libadalang and tools
 
-<li>Langkit from <a href="https://github.com/AdaCore/langkit">https://github.com/AdaCore/langkit.</a>
+<li>XMLAda
 
-<li>Libadalang from <a href="https://github.com/AdaCore/libadalang">https://github.com/AdaCore/libadalang.</a>
-
-<li>Libadalang tools from <a href="https://github.com/AdaCore/libadalang-tools">https://github.com/AdaCore/libadalang-tools.</a>
-
-<li>XMLAda from <a href="https://github.com/AdaCore/xmlada">https://github.com/AdaCore/xmlada.</a>
-
-<li>GDB 10.2.
+<li>GDB 10.2, as
+patched <a href="https://sourceware.org/bugzilla/show_bug.cgi?id=24069#c14">here</a>.
 
 </ul>
 

@@ -10,14 +10,17 @@
 #                  #
 ####################
 
-version=11.1.0
+kind="GNAT CE"
+release_prefix=gnat-ce
+version=2021
+gcc_version=10.3.1 # should be possible to compute from bin.gcc -v
 machine=x86_64-apple-darwin15
 
 # Where the compiler was installed while in development
-built_prefix="/Volumes/Miscellaneous1/x86_64/gcc-11.1.0"
+built_prefix="/Volumes/Miscellaneous1/x86_64/$release_prefix-$version"
 
 # SJW's preferred style.
-prefix=/opt/gcc-$version
+prefix=/opt/$release_prefix-$version
 xprefix=""
 : ${TMPDIR:=`pwd`}
 tmpout="${TMPDIR}/install.log"
@@ -90,7 +93,7 @@ ask_base_prefix() {
 
    cat << EOF
 
-    In which directory do you want to install FSF GCC $version?
+    In which directory do you want to install $kind $version?
         [$prefix]:
 EOF
     read ans_prefix
@@ -140,13 +143,13 @@ EOF
 standard_installation () {
 
    # Check if there's a former installation of GCC
-   if [ -d $prefix/lib/gcc-lib/$machine/$version -o \
-        -d $prefix/lib/gcc/$machine/$version ]; then
+   if [ -d $prefix/lib/gcc-lib/$machine/$gcc_version -o \
+        -d $prefix/lib/gcc/$machine/$gcc_version ]; then
       clear
       cat << EOF
 
 
-   Some gcc-$version files were found in
+   Some $release_prefix-$version files were found in
       $prefix
    If you want to exit the installation process and cleanup this
    directory manually, press 'N'. If you want to proceed with
@@ -171,7 +174,7 @@ EOF
      (make ins-all \
          prefix=$prefix \
          machine=$machine \
-         version=$version \
+         version=$gcc_version \
          built_prefix=$built_prefix 2>&1; echo $? > $tmpvalue ) | tee $tmpout
 
    # Check that installation was OK
@@ -228,7 +231,7 @@ EOF
    https://forward-in-code.blogspot.com/2018/11/mojave-vs-gdb.html,
    section "Security".
 
-   These procedures should be applied after the FSF GCC install has
+   These procedures should be applied after the $kind install has
    completed.
 
    Press Enter to continue.
@@ -241,7 +244,7 @@ EOF
 
    cat << EOF
 
-   FSF GCC $version is now installed. To launch it, you must put
+   $kind $version is now installed. To launch it, you must put
       $prefix/bin
    in front of your PATH environment variable. The following
    commands enable you to do this:
@@ -254,7 +257,7 @@ EOF
 
    export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
 
-   Thank you for installing FSF GCC $version!
+   Thank you for installing $kind $version!
 
 EOF
 }
@@ -278,7 +281,7 @@ cat << EOF
 
    This script is provided to simplify the installation of the
      $machine
-   binary version of the FSF GCC $version Ada environment.
+   binary version of the $kind $version Ada environment.
 
    This script will ask you how you would like to configure GCC.
    Confirmation is required before any write action is taken.
@@ -299,7 +302,7 @@ while [ "x$confirm" != "xOK" ]; do
     cat << EOF
 
 
-    To install GCC, you need to specify a base directory.
+    To install GNAT, you need to specify a base directory.
     All the files will be installed in subdirectories
     that are created under this directory.
 
@@ -368,7 +371,7 @@ clear
 cat << EOF
 
 
-   FSF GCC $version is now about to be installed in
+   $kind $version is now about to be installed in
       $prefix.
    Type 'Y' if you want to proceed with installation or any other key
    if you wish to abort.

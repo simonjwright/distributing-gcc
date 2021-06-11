@@ -64,8 +64,12 @@ ins-basic:: mkdirs
 # an i386/ subdirectory.
 cpp   = $(shell find lib -depth 1 -type f -name libstdc++.\*.dylib)
 gcc   = $(shell find lib -depth 1 -type f -name libgcc_s.\*.dylib)
+gmp   = $(shell find lib -depth 1 -type f -name libgmp.\*.dylib)
 gomp  = $(shell find lib -depth 1 -type f -name libgomp.\*.dylib)
+mpc   = $(shell find lib -depth 1 -type f -name libmpc.\*.dylib)
+mpfr  = $(shell find lib -depth 1 -type f -name libmpfr.\*.dylib)
 qmth  = $(shell find lib -depth 1 -type f -name libquadmath.\*.dylib)
+
 
 ins-fixup::
 	@echo "fixing up executables in $(prefix)/bin"
@@ -98,6 +102,15 @@ ins-fixup::
 			-change						\
 			$(built_prefix)/$(gcc)				\
 			$(prefix)/$(gcc)				\
+			-change						\
+			$(built_prefix)/$(gmp)				\
+			$(prefix)/$(gmp)				\
+			-change						\
+			$(built_prefix)/$(mpfr)				\
+			$(prefix)/$(mpfr)				\
+			-change						\
+			$(built_prefix)/$(mpc)				\
+			$(prefix)/$(mpc)				\
 			$$ex;						\
 		fi;							\
 	    done;							\
@@ -155,6 +168,15 @@ ins-fixup::
 			-change						\
 			$(built_prefix)/$(gcc)				\
 			$(prefix)/$(gcc)				\
+			-change						\
+			$(built_prefix)/$(gmp)				\
+			$(prefix)/$(gmp)				\
+			-change						\
+			$(built_prefix)/$(mpfr)				\
+			$(prefix)/$(mpfr)				\
+			-change						\
+			$(built_prefix)/$(mpc)				\
+			$(prefix)/$(mpc)				\
 			-change						\
 			$(built_prefix)/$(gomp)				\
 			$(prefix)/$(gomp)				\

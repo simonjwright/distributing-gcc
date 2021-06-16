@@ -1,4 +1,4 @@
-BUILD_ROOT = /Volumes/Miscellaneous1/x86_64
+BUILD_ROOT = /opt
 COMPILER = gnat-ce-$(RELEASE)
 RELEASE=2021
 GCC_VERSION = 10.3.1
@@ -7,24 +7,11 @@ TARGET_ROOT = /opt
 
 all: $(PWD)/product/$(COMPILER)-$(MACHINE).pkg
 
-scripts: postinstall-tmpl
-	rm -rf scripts
-	mkdir scripts
-	sed							\
-	  -e "s|BUILT_PREFIX|$(BUILD_ROOT)/$(COMPILER)|g"	\
-	  -e "s|PREFIX|$(TARGET_ROOT)/$(COMPILER)|g"		\
-	  -e "s|MACHINE|$(MACHINE)|g"				\
-	  -e "s|VERSION|$(GCC_VERSION)|g"				\
-	  <postinstall-tmpl					\
-	  >scripts/postinstall
-	chmod +x scripts/postinstall
-
-$(PWD)/package/$(COMPILER)-$(MACHINE).pkg: scripts
+$(PWD)/package/$(COMPILER)-$(MACHINE).pkg:
 	rm -rf package
 	mkdir package
 	pkgbuild							\
 	  --root $(BUILD_ROOT)/$(COMPILER)				\
-	  --scripts $$PWD/scripts					\
 	  --identifier gnat-ce-x86_64-apple-darwin15			\
 	  --version $(RELEASE)						\
 	  --install-location $(TARGET_ROOT)/$(COMPILER)			\
@@ -43,6 +30,6 @@ $(PWD)/product/$(COMPILER)-$(MACHINE).pkg: \
 	  $@
 
 clean:
-	rm -rf scripts package product
+	rm -rf package product
 
-.PHONY: all scripts package product clean
+.PHONY: all package product clean

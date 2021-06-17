@@ -17,7 +17,7 @@ gcc_version=10.3.1 # should be possible to compute from bin.gcc -v
 machine=x86_64-apple-darwin15
 
 # Where the compiler was installed while in development
-built_prefix="/Volumes/Miscellaneous1/x86_64/$release_prefix-$version"
+built_prefix=/opt/gnat-ce-2021
 
 # SJW's preferred style.
 prefix=/opt/$release_prefix-$version

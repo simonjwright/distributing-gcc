@@ -3,11 +3,13 @@ This directory contains the files needed for installing and running GNAT.
 
 INSTALLING
 
-To install GNAT, simply run the 'doinstall' script (e.g. ./doinstall)
-contained in this directory. This script asks a few questions about how
-you want GNAT to be installed. It prompts you for confirmation before
-proceeding with the actual installation. At any time before this
-confirmation, you can interrupt it by pressing Ctrl-C.
+To install GNAT in a directory other than the one in which the
+Installer has placed it, simply run the 'doinstall' script
+(e.g. ./doinstall) contained in this directory. This script asks a few
+questions about how you want GNAT to be installed. It prompts you for
+confirmation before proceeding with the actual installation. At any
+time before this confirmation, you can interrupt it by pressing
+Ctrl-C.
 
 The information you will be requested to provide is very simple. GNAT
 needs only an installation directory, and for some cross targets,

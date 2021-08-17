@@ -4,16 +4,19 @@
     <readme file="readme.html" mime-type="text/html"/>
     <license file="license.html" mime-type="text/html"/>
     <conclusion file="conclusion.html" mime-type="text/html"/>
-    <pkg-ref id="gnat-ce-x86_64-apple-darwin15"/>
+    <pkg-ref id="gnat-ce-2021-x86_64-apple-darwin15"/>
     <options customize="never" require-scripts="false"/>
     <choices-outline>
         <line choice="default">
-            <line choice="gnat-ce-x86_64-apple-darwin15"/>
+            <line choice="gnat-ce-2021-x86_64-apple-darwin15"/>
         </line>
     </choices-outline>
     <choice id="default"/>
-    <choice id="gnat-ce-x86_64-apple-darwin15" visible="false">
-        <pkg-ref id="gnat-ce-x86_64-apple-darwin15"/>
+    <choice id="gnat-ce-2021-x86_64-apple-darwin15" visible="false">
+        <pkg-ref id="gnat-ce-2021-x86_64-apple-darwin15"/>
     </choice>
-    <pkg-ref id="gnat-ce-x86_64-apple-darwin15" version="2021" onConclusion="none">gnat-ce-2021-x86_64-apple-darwin15.pkg</pkg-ref>
+    <pkg-ref
+        id="gnat-ce-2021-x86_64-apple-darwin15"
+        version="2"
+        onConclusion="none">gnat-ce-2021-x86_64-apple-darwin15.pkg</pkg-ref>
 </installer-gui-script>

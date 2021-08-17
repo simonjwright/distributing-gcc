@@ -1,6 +1,7 @@
 BUILD_ROOT = /opt
 COMPILER = gnat-ce-$(RELEASE)
 RELEASE=2021
+VERSION=2
 GCC_VERSION = 10.3.1
 MACHINE = x86_64-apple-darwin15
 TARGET_ROOT = /opt
@@ -10,12 +11,12 @@ all: $(PWD)/product/$(COMPILER)-$(MACHINE).pkg
 $(PWD)/package/$(COMPILER)-$(MACHINE).pkg:
 	rm -rf package
 	mkdir package
-	pkgbuild							\
-	  --root $(BUILD_ROOT)/$(COMPILER)				\
-	  --identifier gnat-ce-x86_64-apple-darwin15			\
-	  --version $(RELEASE)						\
-	  --install-location $(TARGET_ROOT)/$(COMPILER)			\
-	  --ownership recommended					\
+	pkgbuild						\
+	  --root $(BUILD_ROOT)/$(COMPILER)			\
+	  --identifier $(COMPILER)-x86_64-apple-darwin15	\
+	  --version $(VERSION)					\
+	  --install-location $(TARGET_ROOT)/$(COMPILER)		\
+	  --ownership recommended				\
 	  $@
 
 $(PWD)/product/$(COMPILER)-$(MACHINE).pkg: \

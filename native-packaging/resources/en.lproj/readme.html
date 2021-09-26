@@ -1,17 +1,17 @@
 <html lang="en">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
-    <title>README for GCC-11.1.0 </title>
+    <title>README for GCC-11.2.0 </title>
 </head>
 <body>
 
-<h1>README for GCC-11.1.0</h1>
+<h1>README for GCC-11.2.0</h1>
 
-<p>This is GCC 11.1.0 built on Mac OS X El Capitan (10.11, Darwin 15), with Xcode 8.2.1.
+<p>This is GCC 11.2.0 built on Mac OS X El Capitan (10.11, Darwin 15), with Xcode 8.2.1.
 
 <p>Also runs on macOS versions up to Big Sur (11, Darwin 20).
 
-<p><b>Unlike previous GCC packages for macOS, this package installs at a fixed location: <tt>/opt/gcc-11.1.0</tt></b>.
+<p><b>Unlike previous GCC packages for macOS, this package installs at a fixed location: <tt>/opt/gcc-11.2.0</tt></b>.
 
 <p>Compilers included: Ada, C, C++, Objective C, Objective C++, Fortran.
 
@@ -25,11 +25,11 @@
 
 <ul>
 
-<li><a href="https://github.com/AdaCore/gnatcoll-core">https://github.com/AdaCore/gnatcoll-core.</a>
+<li><a href="https://github.com/AdaCore/gnatcoll-core">https://github.com/AdaCore/gnatcoll-core</a>. OMP and ZLIB are included, LZMA is not (the GNATCOLL version requires thread support in the system library, not available on macOS).
 
-<li><a href="https://github.com/AdaCore/gnatcoll-bindings">https://github.com/AdaCore/gnatcoll-bindings.</a>
+<li><a href="https://github.com/AdaCore/gnatcoll-bindings">https://github.com/AdaCore/gnatcoll-bindings</a>. The Python3 binding was built using the Python 3.8.2 distribution from <a href="https://www.python.org/downloads/macos/">python.org</a>.
 
-<li><a href="https://github.com/AdaCore/gnatcoll-db">https://github.com/AdaCore/gnatcoll-db.</a>
+<li><a href="https://github.com/AdaCore/gnatcoll-db">https://github.com/AdaCore/gnatcoll-db.</a>, with <a href="https://github.com/AdaCore/gnatcoll-db/commit/c75234037fb4568739435fad204f206afe609a77">this patch</a>).
 
 </ul>
 
@@ -43,7 +43,8 @@
 
 <li>XMLAda from <a href="https://github.com/AdaCore/xmlada">https://github.com/AdaCore/xmlada.</a>
 
-<li>GDB 10.2.
+<li>GDB 10.2, as
+patched <a href="https://sourceware.org/bugzilla/show_bug.cgi?id=24069#c14">here</a> and <a href="https://sourceware.org/git/?p=binutils-gdb.git;a=commitdiff;h=47d36ffbf032e971cdea82267a83084eec8ae83c">here</a> (with slight modification).
 
 </ul>
 

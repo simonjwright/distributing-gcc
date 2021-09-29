@@ -1,51 +1,43 @@
 BUILD_ROOT = /Volumes/Miscellaneous1/arm
-COMPILER = gcc-$(VERSION)
-VERSION = 11.1.0
+COMPILER = gcc-$(RELEASE)
+RELEASE = 11.2.0
+VERSION = 1
 MACHINE = arm-eabi
 TARGET_ROOT = /opt
 
-PACKAGE=$(COMPILER)-$(MACHINE)-apple-darwin15.pkg
+all: $(PWD)/product/$(COMPILER)-$(MACHINE).pkg
 
-all: $(PWD)/product/$(PACKAGE)
-
-package: $(PWD)/package/$(PACKAGE)
-product: $(PWD)/product/$(PACKAGE)
-
-scripts: postinstall-tmpl Makefile
-	-mkdir scripts
-	sed							\
-	  -e "s|BUILT_PREFIX|$(BUILD_ROOT)/$(COMPILER)|g"	\
-	  -e "s|PREFIX|$(TARGET_ROOT)/$(COMPILER)|g"		\
-	  -e "s|MACHINE|$(MACHINE)|g"				\
-	  -e "s|VERSION|$(VERSION)|g"				\
-	  <postinstall-tmpl					\
-	  >scripts/postinstall
-	chmod +x scripts/postinstall
-
-$(PWD)/package/$(PACKAGE): scripts
+$(PWD)/package/$(COMPILER)-$(MACHINE).pkg:
 	rm -rf package
 	mkdir package
-	pkgbuild							\
-	  --root $(BUILD_ROOT)/$(COMPILER)				\
-	  --scripts $$PWD/scripts					\
-	  --identifier gcc-arm-eabi-darwin			\
-	  --version $(VERSION)						\
-	  --install-location $(TARGET_ROOT)/$(COMPILER)			\
-	  --ownership recommended					\
+	pkgbuild					\
+	  --root $(BUILD_ROOT)/$(COMPILER)		\
+	  --identifier 	$(COMPILER)-$(MACHINE)		\
+	  --version $(VERSION)				\
+	  --install-location $(TARGET_ROOT)/$(COMPILER)	\
+	  --ownership recommended			\
 	  $@
 
-$(PWD)/product/$(PACKAGE): \
+distribution.xml: distribution.xml-tmpl Makefile
+	sed					\
+	  -e "s|COMPILER|$(COMPILER)|g"		\
+	  -e "s|MACHINE|$(MACHINE)|g"		\
+	  -e "s|VERSION|$(VERSION)|g"		\
+	  <$<					\
+	  >$@
+
+$(PWD)/product/$(COMPILER)-$(MACHINE).pkg: \
  $(PWD)/package/$(COMPILER)-$(MACHINE).pkg distribution.xml resources/*/*
 	find . -name \*~ | xargs rm
 	rm -rf product
 	mkdir product
-	productbuild						\
-	  --distribution distribution.xml			\
-	  --package-path $$PWD/package				\
-	  --resources $$PWD/resources				\
+	productbuild				\
+	  --distribution distribution.xml	\
+	  --package-path $$PWD/package		\
+	  --resources $$PWD/resources		\
 	  $@
 
 clean:
-	rm -rf scripts package product
+	rm -rf package product distribution.xml
 
-.PHONY: clean scripts package product resources
+.PHONY: all package product clean

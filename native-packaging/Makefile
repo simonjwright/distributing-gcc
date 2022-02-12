@@ -1,6 +1,6 @@
 BUILD_ROOT = /opt
 COMPILER = gcc-$(RELEASE)
-RELEASE = 11.2.0
+RELEASE = 12.0.1
 VERSION = 1
 MACHINE = x86_64-apple-darwin15
 TARGET_ROOT = /opt
@@ -18,6 +18,14 @@ $(PWD)/package/$(COMPILER)-$(MACHINE).pkg:
 	  --ownership recommended				\
 	  $@
 
+distribution.xml: distribution.xml-tmpl Makefile
+	sed					\
+	  -e "s|COMPILER|$(COMPILER)|g"		\
+	  -e "s|MACHINE|$(MACHINE)|g"		\
+	  -e "s|VERSION|$(VERSION)|g"		\
+	  <$<					\
+	  >$@
+
 $(PWD)/product/$(COMPILER)-$(MACHINE).pkg: \
  $(PWD)/package/$(COMPILER)-$(MACHINE).pkg distribution.xml resources/*/*
 	find . -name \*~ | xargs rm
@@ -30,6 +38,6 @@ $(PWD)/product/$(COMPILER)-$(MACHINE).pkg: \
 	  $@
 
 clean:
-	rm -rf package product
+	rm -rf package product distribution.xml
 
 .PHONY: all package product clean

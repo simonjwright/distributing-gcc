@@ -1,8 +1,8 @@
 BUILD_ROOT = /opt
 COMPILER = gcc-$(RELEASE)
-RELEASE = 12.0.1
+RELEASE = 12.0.1-2
 VERSION = 1
-MACHINE = x86_64-apple-darwin15
+MACHINE = x86_64-apple-darwin21
 TARGET_ROOT = /opt
 
 all: $(PWD)/product/$(COMPILER)-$(MACHINE).pkg

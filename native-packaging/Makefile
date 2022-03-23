@@ -1,8 +1,8 @@
 BUILD_ROOT = /opt
 COMPILER = gcc-$(RELEASE)
-RELEASE = 12.0.1-2
+RELEASE = 12.0.1
 VERSION = 1
-MACHINE = x86_64-apple-darwin21
+MACHINE = aarch64-apple-darwin21
 TARGET_ROOT = /opt
 
 all: $(PWD)/product/$(COMPILER)-$(MACHINE).pkg
@@ -10,12 +10,12 @@ all: $(PWD)/product/$(COMPILER)-$(MACHINE).pkg
 $(PWD)/package/$(COMPILER)-$(MACHINE).pkg:
 	rm -rf package
 	mkdir package
-	pkgbuild						\
-	  --root $(BUILD_ROOT)/$(COMPILER)			\
-	  --identifier $(COMPILER)-x86_64-apple-darwin15	\
-	  --version $(VERSION)					\
-	  --install-location $(TARGET_ROOT)/$(COMPILER)		\
-	  --ownership recommended				\
+	pkgbuild					\
+	  --root $(BUILD_ROOT)/$(COMPILER)		\
+	  --identifier $(COMPILER)-$(MACHINE)		\
+	  --version $(VERSION)				\
+	  --install-location $(TARGET_ROOT)/$(COMPILER)	\
+	  --ownership recommended			\
 	  $@
 
 distribution.xml: distribution.xml-tmpl Makefile
@@ -31,10 +31,10 @@ $(PWD)/product/$(COMPILER)-$(MACHINE).pkg: \
 	find . -name \*~ | xargs rm
 	rm -rf product
 	mkdir product
-	productbuild						\
-	  --distribution distribution.xml			\
-	  --package-path $$PWD/package				\
-	  --resources $$PWD/resources				\
+	productbuild				\
+	  --distribution distribution.xml	\
+	  --package-path $$PWD/package		\
+	  --resources $$PWD/resources		\
 	  $@
 
 clean:

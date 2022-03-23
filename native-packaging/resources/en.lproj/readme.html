@@ -1,19 +1,25 @@
 <html lang="en">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
-    <title>README for GCC-12.0.1-2</title>
+    <title>README for GCC-12.0.1-aarch64</title>
 </head>
 <body>
 
-<h1>README for GCC-12.0.1-2</h1>
+<h1>README for GCC-12.0.1-aarch64</h1>
 
-<p>This is GCC 12.0.1-2 built on macOS Monterey (12, Darwin 21), with Xcode 13.2.1.
+<p>This is GCC 12.0.1-aarch64 built on macOS Monterey (12, Darwin 21), with
+
+<ul>
+<li>Command Line Tools 13.3.0
+<li>Patch for <a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=104871">PR104871</a>
+<li>Python 3.9.11 from <a href="https://www.python.org/downloads/macos/">python.org</a>
+</ul>
 
 <!--
 <p>Also runs on macOS versions up to Big Sur (11, Darwin 20).
 -->
 
-<p><b>Unlike previous GCC packages for macOS, this package installs at a fixed location: <tt>/opt/gcc-12.0.1-2</tt></b>.
+<p><b>Unlike previous GCC packages for macOS, this package installs at a fixed location: <tt>/opt/gcc-12.0.1-aarch64</tt></b>.
 
 <p>Compilers included: Ada, C, C++.
 <!--
@@ -24,29 +30,31 @@
 
 <ul>
 
-<li>AUnit from <a href="https://github.com/AdaCore/aunit">https://github.com/AdaCore/aunit.</a>
+<li>AUnit from <a href="https://github.com/AdaCore/aunit">https://github.com/AdaCore/aunit</a>.
 
 <li>GNATCOLL from:
 
 <ul>
 
-<li><a href="https://github.com/AdaCore/gnatcoll-core">https://github.com/AdaCore/gnatcoll-core</a>. OMP and ZLIB are included, LZMA is not (the GNATCOLL version requires thread support in the system library, not available on macOS).
+<li><a href="https://github.com/AdaCore/gnatcoll-core">https://github.com/AdaCore/gnatcoll-core</a>. ZLIB is included, OMP and LZMA are not (the GNATCOLL version for LZMA requires thread support in the system library, not available on macOS).
 
-<li><a href="https://github.com/AdaCore/gnatcoll-bindings">https://github.com/AdaCore/gnatcoll-bindings</a>. The Python3 binding was built using the Python 3.8.2 distribution from <a href="https://www.python.org/downloads/macos/">python.org</a>.
+<li><a href="https://github.com/AdaCore/gnatcoll-bindings">https://github.com/AdaCore/gnatcoll-bindings</a>.
 
-<li><a href="https://github.com/AdaCore/gnatcoll-db">https://github.com/AdaCore/gnatcoll-db.</a>, with <a href="https://github.com/AdaCore/gnatcoll-db/commit/c75234037fb4568739435fad204f206afe609a77">this patch</a>).
+<li><a href="https://github.com/AdaCore/gnatcoll-db">https://github.com/AdaCore/gnatcoll-db</a>.
 
 </ul>
 
-<li>Gprbuild from <a href="https://github.com/AdaCore/gprbuild">https://github.com/AdaCore/gprbuild.</a>
+<li>Gprbuild from <a href="https://github.com/AdaCore/gprbuild">https://github.com/AdaCore/gprbuild</a>.
 
-<li>Langkit from <a href="https://github.com/AdaCore/langkit">https://github.com/AdaCore/langkit.</a>
+<li>Gprconfig_kb from <a href="https://github.com/AdaCore/gprconfig_kb">https://github.com/AdaCore/gprconfig_kb</a> with <a href="https://github.com/AdaCore/gprconfig_kb/pull/17">this patch</a>.
 
-<li>Libadalang from <a href="https://github.com/AdaCore/libadalang">https://github.com/AdaCore/libadalang.</a>
+<li>Langkit from <a href="https://github.com/AdaCore/langkit">https://github.com/AdaCore/langkit</a>.
 
-<li>Libadalang tools from <a href="https://github.com/AdaCore/libadalang-tools">https://github.com/AdaCore/libadalang-tools.</a>
+<li>Libadalang from <a href="https://github.com/AdaCore/libadalang">https://github.com/AdaCore/libadalang</a>.
 
-<li>XMLAda from <a href="https://github.com/AdaCore/xmlada">https://github.com/AdaCore/xmlada.</a>
+<li>Libadalang tools from <a href="https://github.com/AdaCore/libadalang-tools">https://github.com/AdaCore/libadalang-tools</a>.
+
+<li>XMLAda from <a href="https://github.com/AdaCore/xmlada">https://github.com/AdaCore/xmlada</a>.
 
 <!--
 <li>GDB 10.2, as

@@ -1,59 +1,137 @@
 <html lang="en">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
-    <title>README for GCC-12.0.1-2</title>
+    <title>README for GCC-12.1.0</title>
 </head>
 <body>
 
-<h1>README for GCC-12.0.1-2</h1>
+<h1>README for GCC-12.1.0</h1>
 
-<p>This is GCC 12.0.1-2 built on macOS Monterey (12, Darwin 21), with Xcode 13.2.1.
+<p>This is GCC 12.1.0 built on Mac OS X El Capitan (10.11, Darwin 15), with Xcode 8.2.1 and Python 3.8.</p>
 
-<!--
-<p>Also runs on macOS versions up to Big Sur (11, Darwin 20).
--->
+<p>Also runs on macOS versions up to at least Monterey (12, Darwin 21). It will run on Intel Macs, or M1 Macs under Rosetta, and uses the Xcode SDK if found, the Command Line Tooks SDK if not.</p>
 
-<p><b>Unlike previous GCC packages for macOS, this package installs at a fixed location: <tt>/opt/gcc-12.0.1-2</tt></b>.
+<p><strong>gcc-12.1.0-x86_64-apple-darwin15.pkg</strong></p>
 
-<p>Compilers included: Ada, C, C++.
-<!--
-<p>Compilers included: Ada, C, C++, Objective C, Objective C++, Fortran.
--->
+<p>Compilers included: Ada, C, C++.</p>
 
-<p>Tools included (all at version 22.0.0 and with the <a href="http://www.gnu.org/licenses/gcc-exception-faq.html">Runtime Library Exception</a>):
+<p>Tools included (all at version 22.0.0, and all with the  <a href="http://www.gnu.org/licenses/gcc-exception-faq.html">Runtime Library Exception</a>, except as noted):</p>
+
+<p>Full GPL:</p>
 
 <ul>
+<li><a name="gdb-build"></a> GDB from <a href="https://sourceware.org/git/binutils-gdb.git">https://sourceware.org/git/binutils-gdb.git</a> at commit 9cca177, with the patch for <a href="https://sourceware.org/bugzilla/show_bug.cgi?id=29070">PR29070</a>.</li>
+</ul>
 
-<li>AUnit from <a href="https://github.com/AdaCore/aunit">https://github.com/AdaCore/aunit.</a>
 
+<p>GPL with the <a href="http://www.gnu.org/licenses/gcc-exception-faq.html">Runtime Library Exception</a>:</p>
+
+<ul>
+<li>AUnit from <a href="https://github.com/AdaCore/aunit">https://github.com/AdaCore/aunit</a></li>
 <li>GNATCOLL from:
 
 <ul>
-
-<li><a href="https://github.com/AdaCore/gnatcoll-core">https://github.com/AdaCore/gnatcoll-core</a>. OMP and ZLIB are included, LZMA is not (the GNATCOLL version requires thread support in the system library, not available on macOS).
-
-<li><a href="https://github.com/AdaCore/gnatcoll-bindings">https://github.com/AdaCore/gnatcoll-bindings</a>. The Python3 binding was built using the Python 3.8.2 distribution from <a href="https://www.python.org/downloads/macos/">python.org</a>.
-
-<li><a href="https://github.com/AdaCore/gnatcoll-db">https://github.com/AdaCore/gnatcoll-db.</a>, with <a href="https://github.com/AdaCore/gnatcoll-db/commit/c75234037fb4568739435fad204f206afe609a77">this patch</a>).
-
+<li><a href="https://github.com/AdaCore/gnatcoll-core">https://github.com/AdaCore/gnatcoll-core</a></li>
+<li><a href="https://github.com/AdaCore/gnatcoll-bindings">https://github.com/AdaCore/gnatcoll-bindings</a></li>
+<li><a href="https://github.com/AdaCore/gnatcoll-db">https://github.com/AdaCore/gnatcoll-db</a> (only the SQLite backend)</li>
+</ul>
+</li>
+<li>Gprbuild from <a href="https://github.com/AdaCore/gprbuild">https://github.com/AdaCore/gprbuild</a></li>
+<li>Langkit from <a href="https://github.com/AdaCore/langkit">https://github.com/AdaCore/langkit</a></li>
+<li>Libadalang from <a href="https://github.com/AdaCore/libadalang">https://github.com/AdaCore/libadalang</a></li>
+<li>Libadalang tools from <a href="https://github.com/AdaCore/libadalang-tools">https://github.com/AdaCore/libadalang-tools</a></li>
+<li>XMLAda from <a href="https://github.com/AdaCore/xmlada">https://github.com/AdaCore/xmlada</a></li>
 </ul>
 
-<li>Gprbuild from <a href="https://github.com/AdaCore/gprbuild">https://github.com/AdaCore/gprbuild.</a>
 
-<li>Langkit from <a href="https://github.com/AdaCore/langkit">https://github.com/AdaCore/langkit.</a>
+<p>Configured with:</p>
 
-<li>Libadalang from <a href="https://github.com/AdaCore/libadalang">https://github.com/AdaCore/libadalang.</a>
+<pre><code>--prefix=/opt/gcc-12.1.0
+--without-libiconv-prefix
+--disable-libmudflap
+--disable-libstdcxx-pch
+--disable-libsanitizer
+--disable-libcc1
+--disable-libcilkrts
+--disable-multilib
+--disable-nls
+--enable-languages=c,c++,ada
+--host=x86_64-apple-darwin15
+--target=x86_64-apple-darwin15
+--build=x86_64-apple-darwin15
+--without-isl
+--with-build-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk
+--with-sysroot=
+--with-specs=&apos;%{!sysroot=*:--sysroot=%:if-exists-else(/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk)}&apos;
+--with-build-config=no
+--enable-bootstrap</code></pre>
 
-<li>Libadalang tools from <a href="https://github.com/AdaCore/libadalang-tools">https://github.com/AdaCore/libadalang-tools.</a>
 
-<li>XMLAda from <a href="https://github.com/AdaCore/xmlada">https://github.com/AdaCore/xmlada.</a>
+<p>and patched for <a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=104871">PR104871</a>.</p>
 
-<!--
-<li>GDB 10.2, as
-patched <a href="https://sourceware.org/bugzilla/show_bug.cgi?id=24069#c14">here</a> and <a href="https://sourceware.org/git/?p=binutils-gdb.git;a=commitdiff;h=47d36ffbf032e971cdea82267a83084eec8ae83c">here</a> (with slight modification).
--->
+<h2 id="install">Install</h2>
 
-</ul>
+<p>One of <em>Xcode</em> or the Command Line Tools is required.</p>
 
+<p><em>Xcode</em> can be downloaded from the App Store.<br/>
+Install the Command Line Tools by <code>sudo xcode-select --install</code>.</p>
+
+<p>Download the binary <code>.pkg</code>. It&rsquo;s not signed, so <strong>don&rsquo;t</strong> double-click on it; instead, right-click on it and <em>Open</em>. Accept the warning. You will be guided through the installation.</p>
+
+<h3 id="setting-path">Setting PATH</h3>
+
+<p><code>PATH</code> needs to be set to include <code>/opt/gcc-12.1.0/bin</code> at the front:</p>
+
+<h4 id="bash"><code>bash</code></h4>
+
+<p>Insert</p>
+
+<pre><code>export PATH=/opt/gcc-12.1.0/bin:$PATH</code></pre>
+
+
+<p>in your <code>~/.bash_profile_common</code>.</p>
+
+<h4 id="zsh"><code>zsh</code></h4>
+
+<p>Likewise, but in <code>~/.zshrc</code>.</p>
+
+<p>See <a href="https://scriptingosx.com/2019/06/moving-to-zsh/">here</a> for helpful information on moving to <code>zsh</code>.</p>
+
+<h3 id="installing-gdb"><a name="installing-gdb">Installing GDB</a></h3>
+
+<p><code>gdb</code> has to be &lsquo;code-signed&rsquo; (unless you&rsquo;re willing to run it as root!) and under Sierra and later macOS releases there are additional steps that have to be taken.</p>
+
+<p>For El Capitan, see <a href="https://gcc.gnu.org/onlinedocs/gnat_ugn/Codesigning-the-Debugger.html">here</a>.</p>
+
+<p>For Sierra, and High Sierra, see <a href="http://blog.adacore.com/gnat-on-macos-sierra">here</a>; in the case of High Sierra, the 10.12.1 paragraph refers.</p>
+
+<p>For Mojave, Catalina, Big Sur and Monterey, see <a href="https://forward-in-code.blogspot.com/2018/11/mojave-vs-gdb.html">here</a>.</p>
+
+<h2 id="notes">Notes</h2>
+
+<p>The software was built using the <a href="https://github.com/simonjwright/building-gcc-macos-native">building-gcc-macos-native</a> scripts at Github, tag gcc-12.1.0.</p>
+
+<h3 id="compiler">Compiler</h3>
+
+<p>The compiler is GPL version 3. The runtime has the GCC Runtime Exception, so executables built with it can be released on proprietary terms.</p>
+
+<h3 id="gmp,-mpfr,-mpc">GMP, MPFR, MPC</h3>
+
+<p>These libraries (releases 6.2.1, 4.1.0, 1.2.1 respectively) are installed with the compiler.</p>
+
+<h3 id="include,-library-paths">Include, library paths</h3>
+
+<p>As noted <a href="https://forward-in-code.blogspot.com/2022/03/which-sdk-choices-choices.html">here</a>, Apple have changed the location of system include files and libraries; they used to be copied from the SDKs to the &ldquo;standard&rdquo; <code>/usr/include</code> and <code>/usr/lib</code> either automatically or on command.</p>
+
+<p>This compiler has been built so you don&rsquo;t need to take any related action to use it: unfortunately, this means that paths in <code>/usr/local</code> and <code>/Library/Frameworks</code> aren&rsquo;t searched.</p>
+
+<h2 id="tool-notes">Tool notes</h2>
+
+<p><strong>GDB</strong> was rebuilt with the new compiler, with an additonal patch, as noted <a href="#gdb-build">above</a>.<br/>
+To use the debugger, it must be signed: again, see above.</p>
+
+<h2 id="distribution">Distribution</h2>
+
+<p>The distribution was prepared using the <a href="https://github.com/simonjwright/distributing-gcc">distributing-gcc project</a> at Github, tag gcc-12.1.0.</p>
 </body>
 </html>

@@ -1,7 +1,7 @@
 BUILD_ROOT = /opt
 COMPILER = gcc-$(RELEASE)
-RELEASE = 12.0.1
-VERSION = 2
+RELEASE = 12.1.0
+VERSION = 1
 ARCH = aarch64
 MACHINE = $(ARCH)-apple-darwin21
 TARGET_ROOT = /opt

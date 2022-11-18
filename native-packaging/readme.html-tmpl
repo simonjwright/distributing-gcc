@@ -1,26 +1,26 @@
 <html lang="en">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
-    <title>README for GCC-12.1.0</title>
+    <title>README for GCC RELEASE</title>
 </head>
 <body>
 
-<h1>README for GCC-12.1.0</h1>
+<h1>README for GCC RELEASE</h1>
 
-<p>This is GCC 12.1.0 built on Mac OS X El Capitan (10.11, Darwin 15), with Xcode 8.2.1 and Python 3.8.</p>
+<p>This is GCC RELEASE built on Mac OS X El Capitan (10.11, Darwin 15), with Xcode 8.2.1 and Python 3.9.</p>
 
-<p>Also runs on macOS versions up to at least Monterey (12, Darwin 21). It will run on Intel Macs, or M1 Macs under Rosetta, and uses the Xcode SDK if found, the Command Line Tooks SDK if not.</p>
+<p>Also runs on macOS versions up to at least Monterey (12, Darwin 21). It will run on Macs with Intel or Apple silicon under Rosetta, and uses the Xcode SDK if found, the Command Line Tooks SDK if not.</p>
 
-<p><strong>gcc-12.1.0-x86_64-apple-darwin15.pkg</strong></p>
+<p><strong>COMPILER-MACHINE.pkg</strong></p>
 
 <p>Compilers included: Ada, C, C++.</p>
 
-<p>Tools included (all at version 22.0.0, and all with the  <a href="http://www.gnu.org/licenses/gcc-exception-faq.html">Runtime Library Exception</a>, except as noted):</p>
+<p>Tools included (all at version 23.0.0, and all with the  <a href="http://www.gnu.org/licenses/gcc-exception-faq.html">Runtime Library Exception</a>, except as noted):</p>
 
 <p>Full GPL:</p>
 
 <ul>
-<li><a name="gdb-build"></a> GDB from <a href="https://sourceware.org/git/binutils-gdb.git">https://sourceware.org/git/binutils-gdb.git</a> at commit 9cca177, with the patch for <a href="https://sourceware.org/bugzilla/show_bug.cgi?id=29070">PR29070</a>.</li>
+<li><a name="gdb-build"></a> GDB from <a href="https://sourceware.org/git/binutils-gdb.git">https://sourceware.org/git/binutils-gdb.git</a> at tag <tt>gdb-12.1-release</tt> (without Python support).</li>
 </ul>
 
 
@@ -40,13 +40,13 @@
 <li>Langkit from <a href="https://github.com/AdaCore/langkit">https://github.com/AdaCore/langkit</a></li>
 <li>Libadalang from <a href="https://github.com/AdaCore/libadalang">https://github.com/AdaCore/libadalang</a></li>
 <li>Libadalang tools from <a href="https://github.com/AdaCore/libadalang-tools">https://github.com/AdaCore/libadalang-tools</a></li>
+<li>Templates parser from <a href="https://github.com/AdaCore/templates-parser">https://github.com/AdaCore/templates-parser</a>
 <li>XMLAda from <a href="https://github.com/AdaCore/xmlada">https://github.com/AdaCore/xmlada</a></li>
 </ul>
 
-
 <p>Configured with:</p>
 
-<pre><code>--prefix=/opt/gcc-12.1.0
+<pre><code>--prefix=/opt/gcc-RELEASE
 --without-libiconv-prefix
 --disable-libmudflap
 --disable-libstdcxx-pch
@@ -66,9 +66,6 @@
 --with-build-config=no
 --enable-bootstrap</code></pre>
 
-
-<p>and patched for <a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=104871">PR104871</a>.</p>
-
 <h2 id="install">Install</h2>
 
 <p>One of <em>Xcode</em> or the Command Line Tools is required.</p>
@@ -80,13 +77,13 @@ Install the Command Line Tools by <code>sudo xcode-select --install</code>.</p>
 
 <h3 id="setting-path">Setting PATH</h3>
 
-<p><code>PATH</code> needs to be set to include <code>/opt/gcc-12.1.0/bin</code> at the front:</p>
+<p><code>PATH</code> needs to be set to include <code>/opt/gcc-RELEASE/bin</code> at the front:</p>
 
 <h4 id="bash"><code>bash</code></h4>
 
 <p>Insert</p>
 
-<pre><code>export PATH=/opt/gcc-12.1.0/bin:$PATH</code></pre>
+<pre><code>export PATH=/opt/gcc-RELEASE/bin:$PATH</code></pre>
 
 
 <p>in your <code>~/.bash_profile_common</code>.</p>
@@ -109,7 +106,7 @@ Install the Command Line Tools by <code>sudo xcode-select --install</code>.</p>
 
 <h2 id="notes">Notes</h2>
 
-<p>The software was built using the <a href="https://github.com/simonjwright/building-gcc-macos-native">building-gcc-macos-native</a> scripts at Github, tag gcc-12.1.0.</p>
+<p>The software was built using the <a href="https://github.com/simonjwright/building-gcc-macos-native">building-gcc-macos-native</a> scripts at Github, tag COMPILER.</p>
 
 <h3 id="compiler">Compiler</h3>
 
@@ -127,11 +124,11 @@ Install the Command Line Tools by <code>sudo xcode-select --install</code>.</p>
 
 <h2 id="tool-notes">Tool notes</h2>
 
-<p><strong>GDB</strong> was rebuilt with the new compiler, with an additonal patch, as noted <a href="#gdb-build">above</a>.<br/>
+<p><strong>GDB</strong> was rebuilt with the new compiler.<br/>
 To use the debugger, it must be signed: again, see above.</p>
 
 <h2 id="distribution">Distribution</h2>
 
-<p>The distribution was prepared using the <a href="https://github.com/simonjwright/distributing-gcc">distributing-gcc project</a> at Github, tag gcc-12.1.0.</p>
+<p>The distribution was prepared using the <a href="https://github.com/simonjwright/distributing-gcc">distributing-gcc project</a> at Github, tag COMPILER-ARCH.</p>
 </body>
 </html>

@@ -1,6 +1,6 @@
 BUILD_ROOT = /opt
 COMPILER = gcc-$(RELEASE)
-RELEASE = 12.1.0
+RELEASE = 12.2.0
 VERSION = 1
 ARCH = aarch64
 MACHINE = $(ARCH)-apple-darwin21
@@ -22,23 +22,42 @@ $(PWD)/package/$(COMPILER)-$(MACHINE).pkg:
 distribution.xml: distribution.xml-tmpl Makefile
 	sed					\
 	  -e "s|COMPILER|$(COMPILER)|g"		\
+	  -e "s|ARCH|$(ARCH)|g"			\
 	  -e "s|MACHINE|$(MACHINE)|g"		\
+	  -e "s|RELEASE|$(RELEASE)|g"		\
 	  -e "s|VERSION|$(VERSION)|g"		\
 	  <$<					\
 	  >$@
 
+resources/en.lproj/%.html: %.html-tmpl Makefile
+	sed					\
+	  -e "s|COMPILER|$(COMPILER)|g"		\
+	  -e "s|ARCH|$(ARCH)|g"			\
+	  -e "s|MACHINE|$(MACHINE)|g"		\
+	  -e "s|RELEASE|$(RELEASE)|g"		\
+	  -e "s|VERSION|$(VERSION)|g"		\
+	  <$<					\
+	  >$@
+
+html::
+	-mkdir -p resources/en.lproj
+html:: resources/en.lproj/welcome.html
+html:: resources/en.lproj/license.html
+html:: resources/en.lproj/readme.html
+html:: resources/en.lproj/conclusion.html
+
 $(PWD)/product/$(COMPILER)-$(MACHINE).pkg: \
- $(PWD)/package/$(COMPILER)-$(MACHINE).pkg distribution.xml resources/*/*
+ $(PWD)/package/$(COMPILER)-$(MACHINE).pkg distribution.xml html
 	find . -name \*~ | xargs rm
 	rm -rf product
 	mkdir product
-	productbuild				\
-	  --distribution distribution.xml	\
-	  --package-path $$PWD/package		\
-	  --resources $$PWD/resources		\
+	productbuild						\
+	  --distribution distribution.xml			\
+	  --package-path $$PWD/package				\
+	  --resources $$PWD/resources				\
 	  $@
 
 clean:
-	rm -rf package product distribution.xml
+	rm -rf resources package product distribution.xml
 
 .PHONY: all package product clean

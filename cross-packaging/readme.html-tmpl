@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+    <title>README for GCC RELEASE (ARCH)</title>
+</head>
+<body>
+
+<h1>README for GCC RELEASE (ARCH)</h1>
+
+<p>This is GCC RELEASE for ARCH built on Mac OS X El Capitan (10.11, Darwin 15), with Xcode 8.2.1 and Python 3.9.</p>
+
+<p>Also runs on macOS versions up to at least Monterey (12, Darwin 21). It will run on Macs with Intel or Apple silicon under Rosetta.</p>
+
+<p><strong>COMPILER-MACHINE.pkg</strong></p>
+
+<p>Compilers included: Ada, C, C++.</p>
+
+<p>Other software included:
+
+<ul>
+  <li> binutils-2.36.1
+  <li> newlib-4.1.0
+  <li> binutils-gdb at tag <tt>gdb-12.1-release</tt> with a <a href="#python-patch">minor patch</a>, see below.
+</ul>
+
+<h2>Notes</h2>
+
+<p>The <a name="python-patch">minor Python-related patch</a> referred to above is
+<pre>
+index 027d80dcc86..3b282d2f56d 100644
+--- a/gdb/python/python-config.py
++++ b/gdb/python/python-config.py
+@@ -77,6 +77,7 @@ for opt in opt_flags:
+                     libs.insert(0, "-L" + getvar("LIBPL"))
+                 elif os.name == "nt":
+                     libs.insert(0, "-L" + sysconfig.PREFIX + "/libs")
+-            if getvar("LINKFORSHARED") is not None:
++            if getvar("LINKFORSHARED") is not None \
++               and not getvar('PYTHONFRAMEWORK'):
+                 libs.extend(getvar("LINKFORSHARED").split())
+         print(to_unix_path(" ".join(libs)))
+</pre>
+
+<br>
+
+<p>The reason is that the <tt>LINKFORSHARED</tt> Python configuration variable is broken on Darwin; this fix effectively detects that we're running on Darwin and doesn't use it.
+
+</body>
+</html>

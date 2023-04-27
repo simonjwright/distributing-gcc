@@ -7,9 +7,9 @@
 
 <h1>README for GCC RELEASE</h1>
 
-<p>This is GCC RELEASE built on Mac OS X El Capitan (10.11, Darwin 15), with Xcode 8.2.1 and Python 3.9.</p>
+<p>This is GCC RELEASE built on Mac OS Monterey (12, Darwin 21), with Xcode's Command Line Tools 14.2 and Python 3.9.</p>
 
-<p>Also runs on macOS versions up to at least Monterey (12, Darwin 21). It will run on Macs with Intel or Apple silicon under Rosetta, and uses the Xcode SDK if found, the Command Line Tooks SDK if not.</p>
+<p>It will run on Macs with Intel or Apple silicon under Rosetta, and uses the Xcode SDK if found, the Command Line Tooks SDK if not.</p>
 
 <p><strong>COMPILER-MACHINE.pkg</strong></p>
 
@@ -20,7 +20,7 @@
 <p>Full GPL:</p>
 
 <ul>
-<li><a name="gdb-build"></a> GDB from <a href="https://sourceware.org/git/binutils-gdb.git">https://sourceware.org/git/binutils-gdb.git</a> at tag <tt>gdb-12.1-release</tt> (without Python support).</li>
+<li><a name="gdb-build"></a> GDB from <a href="https://sourceware.org/git/binutils-gdb.git">https://sourceware.org/git/binutils-gdb.git</a> at tag <tt>gdb-12.1-release</tt>.</li>
 </ul>
 
 
@@ -46,7 +46,7 @@
 
 <p>Configured with:</p>
 
-<pre><code>--prefix=/opt/gcc-RELEASE
+<pre><code>--prefix=/opt/gcc-13.1.0
 --without-libiconv-prefix
 --disable-libmudflap
 --disable-libstdcxx-pch
@@ -56,15 +56,18 @@
 --disable-multilib
 --disable-nls
 --enable-languages=c,c++,ada
---host=x86_64-apple-darwin15
---target=x86_64-apple-darwin15
---build=x86_64-apple-darwin15
+--host=x86_64-apple-darwin21
+--target=x86_64-apple-darwin21
+--build=x86_64-apple-darwin21
 --without-isl
---with-build-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk
+--with-build-sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 --with-sysroot=
---with-specs=&apos;%{!sysroot=*:--sysroot=%:if-exists-else(/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk)}&apos;
+--with-specs='%{!sysroot=*:--sysroot=%:if-exists-else(/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk)}'
 --with-build-config=no
---enable-bootstrap</code></pre>
+--enable-bootstrap
+CFLAGS=-Wno-deprecated-declarations
+CXXFLAGS=-Wno-deprecated-declarations</code></pre>
 
 <h2 id="install">Install</h2>
 
@@ -96,11 +99,7 @@ Install the Command Line Tools by <code>sudo xcode-select --install</code>.</p>
 
 <h3 id="installing-gdb"><a name="installing-gdb">Installing GDB</a></h3>
 
-<p><code>gdb</code> has to be &lsquo;code-signed&rsquo; (unless you&rsquo;re willing to run it as root!) and under Sierra and later macOS releases there are additional steps that have to be taken.</p>
-
-<p>For El Capitan, see <a href="https://gcc.gnu.org/onlinedocs/gnat_ugn/Codesigning-the-Debugger.html">here</a>.</p>
-
-<p>For Sierra, and High Sierra, see <a href="http://blog.adacore.com/gnat-on-macos-sierra">here</a>; in the case of High Sierra, the 10.12.1 paragraph refers.</p>
+<p><code>gdb</code> has to be &lsquo;code-signed&rsquo; (unless you&rsquo;re willing to run it as root!)</p>
 
 <p>For Mojave, Catalina, Big Sur and Monterey, see <a href="https://forward-in-code.blogspot.com/2018/11/mojave-vs-gdb.html">here</a>.</p>
 

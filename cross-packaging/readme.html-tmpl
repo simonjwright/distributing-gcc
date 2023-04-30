@@ -7,9 +7,7 @@
 
 <h1>README for GCC RELEASE (ARCH)</h1>
 
-<p>This is GCC RELEASE for ARCH built on Mac OS X El Capitan (10.11, Darwin 15), with Xcode 8.2.1 and Python 3.9.</p>
-
-<p>Also runs on macOS versions up to at least Monterey (12, Darwin 21). It will run on Macs with Intel or Apple silicon under Rosetta.</p>
+This is GCC 13.1.0, rebuilt as a cross-compiler from macOS to arm-eabi, on macOS Monterey (12, Darwin 21), with Command Line Tools 14.2 and Python 3.9.13.
 
 <p><strong>COMPILER-MACHINE.pkg</strong></p>
 
@@ -18,8 +16,8 @@
 <p>Other software included:
 
 <ul>
-  <li> binutils-2.36.1
-  <li> newlib-4.1.0
+  <li> binutils-2.40
+  <li> newlib-4.3.0
   <li> binutils-gdb at tag <tt>gdb-12.1-release</tt> with a <a href="#python-patch">minor patch</a>, see below.
 </ul>
 

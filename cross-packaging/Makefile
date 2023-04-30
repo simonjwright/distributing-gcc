@@ -1,6 +1,6 @@
-BUILD_ROOT = /Volumes/Miscellaneous1/arm
+BUILD_ROOT = /Volumes/Miscellaneous3/arm
 COMPILER = gcc-$(RELEASE)
-RELEASE = 12.2.0
+RELEASE = 13.1.0
 VERSION = 1
 ARCH = arm-eabi
 MACHINE = $(ARCH)

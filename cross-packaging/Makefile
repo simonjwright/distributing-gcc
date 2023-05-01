@@ -1,7 +1,7 @@
 BUILD_ROOT = /Volumes/Miscellaneous3/arm
 COMPILER = gcc-$(RELEASE)
-RELEASE = 13.1.0
-VERSION = 1
+RELEASE = 13.1.0-1
+VERSION = 2
 ARCH = arm-eabi
 MACHINE = $(ARCH)
 TARGET_ROOT = /opt

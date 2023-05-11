@@ -7,16 +7,16 @@
 
 <h1>Summary for GCC RELEASE (ARCH)</h1>
 
-<p>The compiler is now installed under <tt>/opt/gcc-RELEASEINSTALL_SUFFIX</tt>.
+<p>The compiler is now installed under <tt>TARGET_ROOT/COMPILERINSTALL_SUFFIX</tt>.
 
 <h2>Setting PATH</h2>
 
-<p>To launch it, you must put <tt>/opt/gcc-RELEASEINSTALL_SUFFIX/bin</tt> in front
+<p>To launch it, you must put <tt>TARGET_ROOT/COMPILERINSTALL_SUFFIX/bin</tt> in front
 of your <tt>PATH</tt> environment variable. The following command
 enables you to do this in both <tt>bash</tt> and <tt>zsh</tt>:
 
 <pre>
-export PATH=/opt/gcc-RELEASEINSTALL_SUFFIX/bin:$PATH</tt>
+export PATH=TARGET_ROOT/COMPILERINSTALL_SUFFIX/bin:$PATH</tt>
 </pre>
 
 </body>

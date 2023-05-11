@@ -9,7 +9,7 @@
 
 This is GCC 13.1.0, rebuilt as a cross-compiler from macOS to arm-eabi, on macOS Ventura (13, Darwin 22), for Apple silicon (M1), with Command Line Utilities 14.2.0 and Python 3.9.13.
 
-<p><strong>COMPILER-MACHINE.pkg</strong></p>
+<p>The compiler installs under TARGET_ROOT/COMPILERINSTALL_SUFFIX.
 
 <p>Compilers included: Ada, C, C++.</p>
 

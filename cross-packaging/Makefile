@@ -17,7 +17,7 @@ $(PWD)/package/$(COMPILER)-$(MACHINE).pkg:
 	rm -rf package
 	mkdir package
 	pkgbuild							 \
-	  --root $(BUILD_ROOT)/$(COMPILER)				 \
+	  --root $(BUILD_ROOT)/$(COMPILER)$(INSTALL_SUFFIX)		 \
 	  --identifier 	$(COMPILER)-$(MACHINE)				 \
 	  --version $(VERSION)						 \
 	  --install-location $(TARGET_ROOT)/$(COMPILER)$(INSTALL_SUFFIX) \
@@ -29,6 +29,7 @@ distribution.xml: distribution.xml-tmpl Makefile
 	  -e "s|COMPILER|$(COMPILER)|g"			\
 	  -e "s|ARCH|$(ARCH)|g"				\
 	  -e "s|INSTALL_SUFFIX|$(INSTALL_SUFFIX)|g"	\
+	  -e "s|TARGET_ROOT|$(TARGET_ROOT)|g"		\
 	  -e "s|MACHINE|$(MACHINE)|g"			\
 	  -e "s|RELEASE|$(RELEASE)|g"			\
 	  -e "s|VERSION|$(VERSION)|g"			\
@@ -40,6 +41,7 @@ resources/en.lproj/%.html: %.html-tmpl Makefile
 	  -e "s|COMPILER|$(COMPILER)|g"			\
 	  -e "s|ARCH|$(ARCH)|g"				\
 	  -e "s|INSTALL_SUFFIX|$(INSTALL_SUFFIX)|g"	\
+	  -e "s|TARGET_ROOT|$(TARGET_ROOT)|g"		\
 	  -e "s|MACHINE|$(MACHINE)|g"			\
 	  -e "s|RELEASE|$(RELEASE)|g"			\
 	  -e "s|VERSION|$(VERSION)|g"			\

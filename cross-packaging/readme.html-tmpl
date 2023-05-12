@@ -1,17 +1,17 @@
 <html lang="en">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
-    <title>README for GCC RELEASE (ARCH)</title>
+    <title>README for GCC RELEASE (ARCH on HOST)</title>
 </head>
 <body>
 
-<h1>README for GCC RELEASE (ARCH)</h1>
+<h1>README for GCC RELEASE (ARCH on HOST)</h1>
 
-This is GCC 13.1.0, rebuilt as a cross-compiler from macOS to arm-eabi, on macOS Ventura (13, Darwin 22), for Apple silicon (M1), with Command Line Utilities 14.2.0 and Python 3.9.13.
+<p>This is GCC 13.1.0, rebuilt as a cross-compiler from macOS to arm-eabi, on macOS Ventura (13, Darwin 22), for Apple silicon (M1), with Command Line Utilities 14.2.0 and Python 3.9.13.
 
-<p>The compiler installs under TARGET_ROOT/COMPILERINSTALL_SUFFIX.
+<p><b>The compiler installs under <tt>TARGET_ROOT/COMPILER-HOST</tt></b>.
 
-<p>Compilers included: Ada, C, C++.</p>
+<p>Compilers included: Ada, C, C++.
 
 <p>Other software included:
 

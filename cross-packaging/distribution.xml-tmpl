@@ -4,22 +4,22 @@
     <readme file="readme.html" mime-type="text/html"/>
     <license file="license.html" mime-type="text/html"/>
     <conclusion file="conclusion.html" mime-type="text/html"/>
-    <pkg-ref id="COMPILER-MACHINE"/>
+    <pkg-ref id="COMPILER-HOST-MACHINE"/>
     <options
         customize="never"
         require-scripts="false"
         hostArchitectures="arm64"/>
     <choices-outline>
         <line choice="default">
-            <line choice="COMPILER-MACHINE"/>
+            <line choice="COMPILER-HOST-MACHINE"/>
         </line>
     </choices-outline>
     <choice id="default"/>
     <choice id="COMPILER-MACHINE" visible="false">
-        <pkg-ref id="COMPILER-MACHINE"/>
+        <pkg-ref id="COMPILER-HOST-MACHINE"/>
     </choice>
     <pkg-ref
-        id="COMPILER-MACHINE"
+        id="COMPILER-HOST-MACHINE"
         version="1"
         onConclusion="none">
       COMPILER-MACHINE.pkg

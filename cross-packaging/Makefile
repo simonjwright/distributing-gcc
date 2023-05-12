@@ -2,50 +2,46 @@ BUILD_ROOT = /Volumes/Miscellaneous3/arm
 COMPILER = gcc-$(RELEASE)
 RELEASE = 13.1.0
 VERSION = 1
-HOST_ARCH = aarch64
+HOST = aarch64
 ARCH = arm-eabi
 MACHINE = $(ARCH)
 TARGET_ROOT = /opt
 
-ifneq ("x$(HOST_ARCH)", "x")
-  INSTALL_SUFFIX = -$(HOST_ARCH)
-endif
+all: $(PWD)/product/$(COMPILER)-$(HOST)-$(MACHINE).pkg
 
-all: $(PWD)/product/$(COMPILER)-$(MACHINE).pkg
-
-$(PWD)/package/$(COMPILER)-$(MACHINE).pkg:
+$(PWD)/package/$(COMPILER)-$(HOST)-$(MACHINE).pkg:
 	rm -rf package
 	mkdir package
-	pkgbuild							 \
-	  --root $(BUILD_ROOT)/$(COMPILER)$(INSTALL_SUFFIX)		 \
-	  --identifier 	$(COMPILER)-$(MACHINE)				 \
-	  --version $(VERSION)						 \
-	  --install-location $(TARGET_ROOT)/$(COMPILER)$(INSTALL_SUFFIX) \
-	  --ownership recommended					 \
+	pkgbuild						\
+	  --root $(BUILD_ROOT)/$(COMPILER)-$(HOST)		\
+	  --identifier 	$(COMPILER)-$(HOST)-$(ARCH)		\
+	  --version $(VERSION)					\
+	  --install-location $(TARGET_ROOT)/$(COMPILER)-$(HOST)	\
+	  --ownership recommended				\
 	  $@
 
 distribution.xml: distribution.xml-tmpl Makefile
-	sed						\
-	  -e "s|COMPILER|$(COMPILER)|g"			\
-	  -e "s|ARCH|$(ARCH)|g"				\
-	  -e "s|INSTALL_SUFFIX|$(INSTALL_SUFFIX)|g"	\
-	  -e "s|TARGET_ROOT|$(TARGET_ROOT)|g"		\
-	  -e "s|MACHINE|$(MACHINE)|g"			\
-	  -e "s|RELEASE|$(RELEASE)|g"			\
-	  -e "s|VERSION|$(VERSION)|g"			\
-	  <$<						\
+	sed					\
+	  -e "s|COMPILER|$(COMPILER)|g"		\
+	  -e "s|ARCH|$(ARCH)|g"			\
+	  -e "s|HOST|$(HOST)|g"			\
+	  -e "s|TARGET_ROOT|$(TARGET_ROOT)|g"	\
+	  -e "s|MACHINE|$(MACHINE)|g"		\
+	  -e "s|RELEASE|$(RELEASE)|g"		\
+	  -e "s|VERSION|$(VERSION)|g"		\
+	  <$<					\
 	  >$@
 
 resources/en.lproj/%.html: %.html-tmpl Makefile
-	sed						\
-	  -e "s|COMPILER|$(COMPILER)|g"			\
-	  -e "s|ARCH|$(ARCH)|g"				\
-	  -e "s|INSTALL_SUFFIX|$(INSTALL_SUFFIX)|g"	\
-	  -e "s|TARGET_ROOT|$(TARGET_ROOT)|g"		\
-	  -e "s|MACHINE|$(MACHINE)|g"			\
-	  -e "s|RELEASE|$(RELEASE)|g"			\
-	  -e "s|VERSION|$(VERSION)|g"			\
-	  <$<						\
+	sed					\
+	  -e "s|COMPILER|$(COMPILER)|g"		\
+	  -e "s|ARCH|$(ARCH)|g"			\
+	  -e "s|HOST|$(HOST)|g"			\
+	  -e "s|TARGET_ROOT|$(TARGET_ROOT)|g"	\
+	  -e "s|MACHINE|$(MACHINE)|g"		\
+	  -e "s|RELEASE|$(RELEASE)|g"		\
+	  -e "s|VERSION|$(VERSION)|g"		\
+	  <$<					\
 	  >$@
 
 html::
@@ -55,8 +51,8 @@ html:: resources/en.lproj/license.html
 html:: resources/en.lproj/readme.html
 html:: resources/en.lproj/conclusion.html
 
-$(PWD)/product/$(COMPILER)-$(MACHINE).pkg: \
- $(PWD)/package/$(COMPILER)-$(MACHINE).pkg distribution.xml html
+$(PWD)/product/$(COMPILER)-$(HOST)-$(MACHINE).pkg: \
+ $(PWD)/package/$(COMPILER)-$(HOST)-$(MACHINE).pkg distribution.xml html
 	find . -name \*~ | xargs rm
 	rm -rf product
 	mkdir product

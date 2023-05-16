@@ -15,13 +15,13 @@
         </line>
     </choices-outline>
     <choice id="default"/>
-    <choice id="COMPILER-MACHINE" visible="false">
+    <choice id="COMPILER-HOST-MACHINE" visible="false">
         <pkg-ref id="COMPILER-HOST-MACHINE"/>
     </choice>
     <pkg-ref
         id="COMPILER-HOST-MACHINE"
         version="1"
         onConclusion="none">
-      COMPILER-MACHINE.pkg
+      COMPILER-HOST-MACHINE.pkg
     </pkg-ref>
 </installer-gui-script>

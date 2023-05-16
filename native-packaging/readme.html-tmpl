@@ -11,8 +11,6 @@
 
 <p>This is GCC 13.1.0 built on macOS Ventura (13, Darwin 22) but able to run on Monterey, for Apple silicon (M1), with Command Line Utilities 14.2.0 and Python 3.9.13.</p>
 
-<p><strong>gcc-13.1.0-aarch64-apple-darwin21.pkg</strong></p>
-
 <p>Compiler sources are from <a href="https://github.com/iains/gcc-13-branch">https://github.com/iains/gcc-13-branch</a> at tag <code>gcc-13.1-darwin-r0</code>.</p>
 
 <p>Compilers included: Ada, C, C++.</p>
@@ -38,8 +36,6 @@
 <li>XMLAda from <a href="https://github.com/AdaCore/xmlada">https://github.com/AdaCore/xmlada</a></li>
 </ul>
 
-
-<p>Target: aarch64-apple-darwin21</p>
 
 <p>Configured with:</p>
 
@@ -132,17 +128,17 @@ index 14d3dc4..26707d7 100644
 +++ b/Makefile.in
 @@ -35,13 +35,9 @@ MODULES=unicode input_sources sax dom schema
  MODULE_INSTALL=${MODULES:%=%_inst}
- 
+
  GPROPTS=-XXMLADA_BUILD_MODE=${MODE} -XPROCESSORS=${PROCESSORS}
 +GPROPTS+=--target=${TARGET_ALIAS}
- 
+
 -ifeq (${HOST},${TARGET})
  IPREFIX=${DESTDIR}${prefix}
 -else
 -GPROPTS+=--target=${TARGET_ALIAS}
 -IPREFIX=${DESTDIR}${prefix}/${TARGET_ALIAS}
 -endif
- 
+
  ifdef RTS
  GPROPTS+=--RTS=${RTS}</code></pre>
 
@@ -156,7 +152,7 @@ index d4de8894..6fddd346 100644
 @@ -37,13 +37,7 @@ LIB_DIR       = lib/
  # Load current setup if any
  -include makefile.setup
- 
+
 -# target options for cross-build
 -ifeq ($(HOST),$(TARGET))
 -GTARGET=
@@ -164,9 +160,26 @@ index d4de8894..6fddd346 100644
 -else
  GTARGET=--target=$(TARGET)
 -endif
- 
+
  INSTALLER=$(LIB_INSTALLER)
  EXEC_INSTALLER=$(INSTALLER) -XBUILD=${BUILD}</code></pre>
+
+
+<p>and (see <a href="https://github.com/AdaCore/gprbuild/issues/141">gprbuild issue 141</a>)</p>
+
+<pre><code>diff --git a/src/gprlib.adb b/src/gprlib.adb
+index d7547b1d..20abd33a 100644
+--- a/src/gprlib.adb
++++ b/src/gprlib.adb
+@@ -923,7 +923,7 @@ procedure Gprlib is
+          if Separate_Run_Path_Options then
+             for J in 1 .. Rpath.Last_Index loop
+                Options_Table.Append
+-                 (Concat_Paths (Path_Option, &quot; &quot;) &amp; &apos; &apos; &amp; Rpath (J));
++                 (Concat_Paths (Path_Option, &quot; &quot;) &amp; Rpath (J));
+             end loop;
+
+          else</code></pre>
 
 
 <h3 id="include,-library-paths">Include, library paths</h3>
@@ -175,7 +188,4 @@ index d4de8894..6fddd346 100644
 
 <p>This compiler has been built so you don&rsquo;t need to take any related action to use it: unfortunately, this means that paths in <code>/usr/local</code> and <code>/Library/Frameworks</code> aren&rsquo;t searched.</p>
 
-<h2 id="distribution">Distribution</h2>
-
-<p>The distribution was prepared using the <a href="https://github.com/simonjwright/distributing-gcc">distributing-gcc project</a> at Github, tag <code>gcc-13.1.0-aarch64</code>.</p>
 </body>

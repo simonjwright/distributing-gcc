@@ -1,20 +1,24 @@
 BUILD_ROOT = /Volumes/Miscellaneous3/arm
 COMPILER = gcc-$(RELEASE)
 RELEASE = 13.1.0
-VERSION = 1
+VERSION = 2
 HOST = aarch64
 ARCH = arm-eabi
 MACHINE = $(ARCH)
 TARGET_ROOT = /opt
+PKG_NAME = $(COMPILER)-$(HOST)-$(MACHINE)
 
-all: $(PWD)/product/$(COMPILER)-$(HOST)-$(MACHINE).pkg
+# Append release discriminant for repeat releases of the same compiler release.
+PKG_FILE_NAME = $(PKG_NAME)-b
 
-$(PWD)/package/$(COMPILER)-$(HOST)-$(MACHINE).pkg:
+all: $(PWD)/product/$(PKG_FILE_NAME).pkg
+
+$(PWD)/package/$(PKG_NAME).pkg:
 	rm -rf package
 	mkdir package
 	pkgbuild						\
 	  --root $(BUILD_ROOT)/$(COMPILER)-$(HOST)		\
-	  --identifier 	$(COMPILER)-$(HOST)-$(ARCH)		\
+	  --identifier $(PKG_NAME)			\
 	  --version $(VERSION)					\
 	  --install-location $(TARGET_ROOT)/$(COMPILER)-$(HOST)	\
 	  --ownership recommended				\
@@ -51,8 +55,8 @@ html:: resources/en.lproj/license.html
 html:: resources/en.lproj/readme.html
 html:: resources/en.lproj/conclusion.html
 
-$(PWD)/product/$(COMPILER)-$(HOST)-$(MACHINE).pkg: \
- $(PWD)/package/$(COMPILER)-$(HOST)-$(MACHINE).pkg distribution.xml html
+$(PWD)/product/$(PKG_FILE_NAME).pkg: \
+ $(PWD)/package/$(PKG_NAME).pkg distribution.xml html
 	find . -name \*~ | xargs rm
 	rm -rf product
 	mkdir product

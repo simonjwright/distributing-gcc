@@ -104,7 +104,7 @@ Install the Command Line Tools by <code>sudo xcode-select --install</code>.</p>
 
 <h2 id="notes">Notes</h2>
 
-<p>The software was built using the <a href="https://github.com/simonjwright/building-gcc-macos-native">building-gcc-macos-native</a> scripts at Github, tag <code>gcc-13.1.0-aarch64</code>.</p>
+<p>The software was built using the <a href="https://github.com/simonjwright/building-gcc-macos-native">building-gcc-macos-native</a> scripts at Github, tag <code>gcc-13.1.0-aarch64-2</code>.</p>
 
 <p>All compilations were done with <code>export MACOSX_DEPLOYMENT_TARGET=12</code> so that libraries and executables are compatible with macOS Monterey and later.</p>
 

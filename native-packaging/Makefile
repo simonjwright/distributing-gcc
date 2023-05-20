@@ -1,19 +1,23 @@
 BUILD_ROOT = /opt
 COMPILER = gcc-$(RELEASE)
 RELEASE = 13.1.0
-VERSION = 2
+VERSION = 3
 ARCH = aarch64
 MACHINE = $(ARCH)-apple-darwin21
 TARGET_ROOT = /opt
+PKG_NAME = $(COMPILER)-$(MACHINE)
 
-all: $(PWD)/product/$(COMPILER)-$(MACHINE).pkg
+# Append release number for repeat releases of the same compiler release.
+PKG_FILE_NAME = $(PKG_NAME)-1
 
-$(PWD)/package/$(COMPILER)-$(MACHINE).pkg:
+all: $(PWD)/product/$(PKG_FILE_NAME).pkg
+
+$(PWD)/package/$(PKG_FILE_NAME).pkg:
 	rm -rf package
 	mkdir package
 	pkgbuild						\
 	  --root $(BUILD_ROOT)/$(COMPILER)-$(ARCH)		\
-	  --identifier $(COMPILER)-$(MACHINE)			\
+	  --identifier $(PKG_NAME)			\
 	  --version $(VERSION)					\
 	  --install-location $(TARGET_ROOT)/$(COMPILER)-$(ARCH)	\
 	  --ownership recommended				\
@@ -46,8 +50,8 @@ html:: resources/en.lproj/license.html
 html:: resources/en.lproj/readme.html
 html:: resources/en.lproj/conclusion.html
 
-$(PWD)/product/$(COMPILER)-$(MACHINE).pkg: \
- $(PWD)/package/$(COMPILER)-$(MACHINE).pkg distribution.xml html
+$(PWD)/product/$(PKG_FILE_NAME).pkg: \
+ $(PWD)/package/$(PKG_FILE_NAME).pkg distribution.xml html
 	find . -name \*~ | xargs rm
 	rm -rf product
 	mkdir product

@@ -7,12 +7,12 @@ MACHINE = $(ARCH)-apple-darwin21
 TARGET_ROOT = /opt
 PKG_NAME = $(COMPILER)-$(MACHINE)
 
-# Append release number for repeat releases of the same compiler release.
-PKG_FILE_NAME = $(PKG_NAME)-1
+# Append release discriminant for repeat releases of the same compiler release.
+PKG_FILE_NAME = $(PKG_NAME)-b
 
 all: $(PWD)/product/$(PKG_FILE_NAME).pkg
 
-$(PWD)/package/$(PKG_FILE_NAME).pkg:
+$(PWD)/package/$(PKG_NAME).pkg:
 	rm -rf package
 	mkdir package
 	pkgbuild						\
@@ -51,7 +51,7 @@ html:: resources/en.lproj/readme.html
 html:: resources/en.lproj/conclusion.html
 
 $(PWD)/product/$(PKG_FILE_NAME).pkg: \
- $(PWD)/package/$(PKG_FILE_NAME).pkg distribution.xml html
+ $(PWD)/package/$(PKG_NAME).pkg distribution.xml html
 	find . -name \*~ | xargs rm
 	rm -rf product
 	mkdir product
@@ -60,7 +60,6 @@ $(PWD)/product/$(PKG_FILE_NAME).pkg: \
 	  --package-path $$PWD/package				\
 	  --resources $$PWD/resources				\
 	  $@
-
 clean:
 	rm -rf resources package product distribution.xml
 

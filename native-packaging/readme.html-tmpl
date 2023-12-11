@@ -9,9 +9,11 @@
 <!-- insert the release_notes.html, as generated from
      release_notes.md, here -->
 
-<p>This is GCC 13.1.0 built on macOS Ventura (13, Darwin 22) but able to run on Monterey, for Apple silicon (M1), with Command Line Utilities 14.2.0 and Python 3.9.13.</p>
+<p>This is GCC RELEASE built on macOS Ventura (13, Darwin 22) but able to run on Monterey, for Apple silicon (M1), with Command Line Utilities 14.2.0 and Python 3.9.13.</p>
 
-<p>Compiler sources are from <a href="https://github.com/iains/gcc-13-branch">https://github.com/iains/gcc-13-branch</a> at tag <code>gcc-13.1-darwin-r0</code>.</p>
+<p>The <a href="https://github.com/simonjwright/xcode_15_fix">Xcode 15 fix</a> has been applied.
+
+<p>Compiler sources are from <a href="https://github.com/iains/gcc-13-branch">https://github.com/iains/gcc-13-branch</a> at tag <code>gcc-13.2-darwin-r0</code>.</p>
 
 <p>Compilers included: Ada, C, C++.</p>
 
@@ -39,7 +41,7 @@
 
 <p>Configured with:</p>
 
-<pre><code>--prefix=/opt/gcc-13.1.0-aarch64
+<pre><code>--prefix=/opt/gcc-13.2.0-aarch64
 --without-libiconv-prefix
 --disable-libmudflap
 --disable-libstdcxx-pch
@@ -55,14 +57,11 @@
 --without-isl
 --with-build-sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 --with-sysroot=
---with-specs=&apos;%{!sysroot=*:--sysroot=%:if-exists-else(/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
-/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk)}&apos;
---with-as=/usr/bin/as
---with-ld=/usr/bin/ld
---with-ranlib=/usr/bin/ranlib
---with-dsymutil=/usr/bin/dsymutil
---with-build-config=no
+--with-specs='%{!sysroot=*:--sysroot=%:if-exists-else(/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk)}'
+--with-bugurl=https://github.com/simonjwright/building-gcc-macos-native
 --enable-bootstrap
+--enable-host-pie
 CFLAGS=-Wno-deprecated-declarations
 CXXFLAGS=-Wno-deprecated-declarations</code></pre>
 
@@ -85,13 +84,13 @@ Install the Command Line Tools by <code>sudo xcode-select --install</code>.</p>
 
 <h3 id="setting-path">Setting PATH</h3>
 
-<p><code>PATH</code> needs to be set to include <code>/opt/gcc-13.1.0-aarch64/bin</code> at the front:</p>
+<p><code>PATH</code> needs to be set to include <code>/opt/gcc-RELEASE-ARCH/bin</code> at the front:</p>
 
 <h4 id="bash"><code>bash</code></h4>
 
 <p>Insert</p>
 
-<pre><code>export PATH=/opt/gcc-13.1.0-aarch64/bin:$PATH</code></pre>
+<pre><code>export PATH=/opt/gcc-RELEASE-ARCH/bin:$PATH</code></pre>
 
 
 <p>in your <code>~/.bash_profile_common</code>.</p>
@@ -104,7 +103,7 @@ Install the Command Line Tools by <code>sudo xcode-select --install</code>.</p>
 
 <h2 id="notes">Notes</h2>
 
-<p>The software was built using the <a href="https://github.com/simonjwright/building-gcc-macos-native">building-gcc-macos-native</a> scripts at Github, tag <code>gcc-13.1.0-aarch64-2</code>.</p>
+<p>The software was built using the <a href="https://github.com/simonjwright/building-gcc-macos-native">building-gcc-macos-native</a> scripts at Github, tag <code>gcc-RELEASE-ARCH</code>.</p>
 
 <p>All compilations were done with <code>export MACOSX_DEPLOYMENT_TARGET=12</code> so that libraries and executables are compatible with macOS Monterey and later.</p>
 

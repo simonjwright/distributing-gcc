@@ -1,14 +1,14 @@
 BUILD_ROOT = /opt
 COMPILER = gcc-$(RELEASE)
-RELEASE = 13.1.0
-VERSION = 3
+RELEASE = 13.2.0
+VERSION = 1
 ARCH = aarch64
 MACHINE = $(ARCH)-apple-darwin21
 TARGET_ROOT = /opt
 PKG_NAME = $(COMPILER)-$(MACHINE)
 
 # Append release discriminant for repeat releases of the same compiler release.
-PKG_FILE_NAME = $(PKG_NAME)-b
+PKG_FILE_NAME = $(PKG_NAME)
 
 all: $(PWD)/product/$(PKG_FILE_NAME).pkg
 

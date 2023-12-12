@@ -1,4 +1,5 @@
 BUILD_ROOT = /opt
+BUILD_NOTES = https://github.com/simonjwright/building-gcc-macos-native/releases/tag/gcc-13.2.0-aarch64
 COMPILER = gcc-$(RELEASE)
 RELEASE = 13.2.0
 VERSION = 1
@@ -25,6 +26,7 @@ $(PWD)/package/$(PKG_NAME).pkg:
 
 distribution.xml: distribution.xml-tmpl Makefile
 	sed					\
+	  -e "s|BUILD_NOTES|$(BUILD_NOTES)|g"	\
 	  -e "s|COMPILER|$(COMPILER)|g"		\
 	  -e "s|ARCH|$(ARCH)|g"			\
 	  -e "s|MACHINE|$(MACHINE)|g"		\
@@ -35,6 +37,7 @@ distribution.xml: distribution.xml-tmpl Makefile
 
 resources/en.lproj/%.html: %.html-tmpl Makefile
 	sed					\
+	  -e "s|BUILD_NOTES|$(BUILD_NOTES)|g"	\
 	  -e "s|COMPILER|$(COMPILER)|g"		\
 	  -e "s|ARCH|$(ARCH)|g"			\
 	  -e "s|MACHINE|$(MACHINE)|g"		\

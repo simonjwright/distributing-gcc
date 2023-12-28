@@ -9,15 +9,7 @@
 
 <p>The compiler is now installed under <tt>TARGET_ROOT/COMPILER-HOST</tt>.
 
-<h2>Setting PATH</h2>
-
-<p>To launch it, you must put <tt>TARGET_ROOT/COMPILER-HOST/bin</tt> in front
-of your <tt>PATH</tt> environment variable. The following command
-enables you to do this in both <tt>bash</tt> and <tt>zsh</tt>:
-
-<pre>
-export PATH=TARGET_ROOT/COMPILER-HOST/bin:$PATH</tt>
-</pre>
+<p>For notes on setting PATH and other matters, see the <a href="https://github.com/simonjwright/distributing-gcc/wiki">Wiki</a>.
 
 </body>
 </html>

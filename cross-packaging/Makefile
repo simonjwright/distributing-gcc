@@ -1,7 +1,8 @@
 BUILD_ROOT = /Volumes/Miscellaneous3/arm
+BUILD_NOTES = https://github.com/simonjwright/building-gcc-macos-arm-eabi/releases/tag/gcc-13.2.0-aarch64
 COMPILER = gcc-$(RELEASE)
-RELEASE = 13.1.0
-VERSION = 2
+RELEASE = 13.2.0
+VERSION = 1
 HOST = aarch64
 ARCH = arm-eabi
 MACHINE = $(ARCH)
@@ -9,7 +10,7 @@ TARGET_ROOT = /opt
 PKG_NAME = $(COMPILER)-$(HOST)-$(MACHINE)
 
 # Append release discriminant for repeat releases of the same compiler release.
-PKG_FILE_NAME = $(PKG_NAME)-b
+PKG_FILE_NAME = $(PKG_NAME)
 
 all: $(PWD)/product/$(PKG_FILE_NAME).pkg
 
@@ -26,6 +27,7 @@ $(PWD)/package/$(PKG_NAME).pkg:
 
 distribution.xml: distribution.xml-tmpl Makefile
 	sed					\
+	  -e "s|BUILD_NOTES|$(BUILD_NOTES)|g"	\
 	  -e "s|COMPILER|$(COMPILER)|g"		\
 	  -e "s|ARCH|$(ARCH)|g"			\
 	  -e "s|HOST|$(HOST)|g"			\
@@ -38,6 +40,7 @@ distribution.xml: distribution.xml-tmpl Makefile
 
 resources/en.lproj/%.html: %.html-tmpl Makefile
 	sed					\
+	  -e "s|BUILD_NOTES|$(BUILD_NOTES)|g"	\
 	  -e "s|COMPILER|$(COMPILER)|g"		\
 	  -e "s|ARCH|$(ARCH)|g"			\
 	  -e "s|HOST|$(HOST)|g"			\

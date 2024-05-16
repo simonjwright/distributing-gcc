@@ -9,13 +9,11 @@
 
 <p>The compiler is now installed under <tt>/opt/gcc-RELEASE-ARCH</tt>.
 
-<h2>Setting PATH</h2>
-
-<p>To launch it, you must put <tt>/opt/gcc-RELEASE-ARCH/bin</tt> in front of your <tt>PATH</tt> environment variable. The following command enables you to do this in both <tt>bash</tt> and <tt>zsh</tt>:
-
-<pre>
-export PATH=/opt/gcc-RELEASE-ARCH/bin:$PATH</tt>
-</pre>
+<p>See the <a href="https://github.com/simonjwright/distributing-gcc/wiki">Wiki</a> for
+<ul>
+<li><a href="https://github.com/simonjwright/distributing-gcc/wiki/SettingThePath">setting the path</a>
+<li><a href="https://github.com/simonjwright/distributing-gcc/wiki/MovingTheCompiler">moving the compiler</a>
+</ul>
 
 </body>
 </html>

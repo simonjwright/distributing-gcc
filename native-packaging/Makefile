@@ -1,26 +1,32 @@
-BUILD_ROOT = /opt
+BUILD_ROOT = /Volumes/Miscellaneous3/$(ARCH)
+BUILD_NOTES = https://github.com/simonjwright/building-gcc-macos-native/releases/tag/gcc-14.1.0-x86_64
 COMPILER = gcc-$(RELEASE)
-RELEASE = 13.1.0
+RELEASE = 14.1.0
 VERSION = 1
 ARCH = x86_64
 MACHINE = $(ARCH)-apple-darwin21
 TARGET_ROOT = /opt
+PKG_NAME = $(COMPILER)-$(MACHINE)
 
-all: $(PWD)/product/$(COMPILER)-$(MACHINE).pkg
+# Append release discriminant for repeat releases of the same compiler release.
+PKG_FILE_NAME = $(PKG_NAME)
 
-$(PWD)/package/$(COMPILER)-$(MACHINE).pkg:
+all: $(PWD)/product/$(PKG_FILE_NAME).pkg
+
+$(PWD)/package/$(PKG_NAME).pkg:
 	rm -rf package
 	mkdir package
-	pkgbuild					\
-	  --root $(BUILD_ROOT)/$(COMPILER)		\
-	  --identifier $(COMPILER)-$(MACHINE)		\
-	  --version $(VERSION)				\
-	  --install-location $(TARGET_ROOT)/$(COMPILER)	\
-	  --ownership recommended			\
+	pkgbuild						\
+	  --root $(BUILD_ROOT)/$(COMPILER)-$(ARCH)		\
+	  --identifier $(PKG_NAME)			\
+	  --version $(VERSION)					\
+	  --install-location $(TARGET_ROOT)/$(COMPILER)-$(ARCH)	\
+	  --ownership recommended				\
 	  $@
 
 distribution.xml: distribution.xml-tmpl Makefile
 	sed					\
+	  -e "s|BUILD_NOTES|$(BUILD_NOTES)|g"	\
 	  -e "s|COMPILER|$(COMPILER)|g"		\
 	  -e "s|ARCH|$(ARCH)|g"			\
 	  -e "s|MACHINE|$(MACHINE)|g"		\
@@ -31,6 +37,7 @@ distribution.xml: distribution.xml-tmpl Makefile
 
 resources/en.lproj/%.html: %.html-tmpl Makefile
 	sed					\
+	  -e "s|BUILD_NOTES|$(BUILD_NOTES)|g"	\
 	  -e "s|COMPILER|$(COMPILER)|g"		\
 	  -e "s|ARCH|$(ARCH)|g"			\
 	  -e "s|MACHINE|$(MACHINE)|g"		\
@@ -46,8 +53,8 @@ html:: resources/en.lproj/license.html
 html:: resources/en.lproj/readme.html
 html:: resources/en.lproj/conclusion.html
 
-$(PWD)/product/$(COMPILER)-$(MACHINE).pkg: \
- $(PWD)/package/$(COMPILER)-$(MACHINE).pkg distribution.xml html
+$(PWD)/product/$(PKG_FILE_NAME).pkg: \
+ $(PWD)/package/$(PKG_NAME).pkg distribution.xml html
 	find . -name \*~ | xargs rm
 	rm -rf product
 	mkdir product
@@ -56,7 +63,6 @@ $(PWD)/product/$(COMPILER)-$(MACHINE).pkg: \
 	  --package-path $$PWD/package				\
 	  --resources $$PWD/resources				\
 	  $@
-
 clean:
 	rm -rf resources package product distribution.xml
 

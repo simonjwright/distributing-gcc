@@ -7,19 +7,7 @@
 
 <h1>README for GCC RELEASE (ARCH on HOST)</h1>
 
-<p>This is GCC 13.2.0, rebuilt as a cross-compiler from macOS to arm-eabi, on macOS Ventura (14, Darwin 23) but comaptible with Monterey, for Apple silicon (M1), with Command Line Utilities 14.2.0 and Python 3.9.13.
-
-<p><b>The compiler installs under <tt>TARGET_ROOT/COMPILER-HOST</tt></b>.
-
-<p>Compilers included: Ada, C, C++.
-
-<p>Other software included:
-
-<ul>
-  <li> binutils-2.40
-  <li> newlib-4.3.0
-  <li> gdb-14.1
-</ul>
+<p>This is GCC RELEASE built as a cross-compiler from macOS to arm-eabi, on macOS Sonoma (14, Darwin 23) but able to run on Monterey, for HOST silicon, with Command Line Utilities 15.3.0 and Python 3.9.13.</p>
 
 <p>Please see the <a href="BUILD_NOTES">build notes</a> for full details.
 

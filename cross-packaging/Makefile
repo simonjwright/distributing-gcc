@@ -1,7 +1,7 @@
 BUILD_ROOT = /Volumes/Miscellaneous3/arm
-BUILD_NOTES = https://github.com/simonjwright/building-gcc-macos-arm-eabi/releases/tag/gcc-13.2.0-aarch64
+BUILD_NOTES = https://github.com/simonjwright/building-gcc-macos-arm-eabi/releases/tag/gcc-14.1.0-aarch64
 COMPILER = gcc-$(RELEASE)
-RELEASE = 13.2.0
+RELEASE = 14.1.0
 VERSION = 1
 HOST = aarch64
 ARCH = arm-eabi
@@ -64,7 +64,7 @@ $(PWD)/product/$(PKG_FILE_NAME).pkg: \
 	rm -rf product
 	mkdir product
 	productbuild						\
-	  --distribution distribution.xml			\
+	  --distribution $$PWD/distribution.xml			\
 	  --package-path $$PWD/package				\
 	  --resources $$PWD/resources				\
 	  $@

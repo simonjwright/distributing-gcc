@@ -6,7 +6,7 @@
 <body>
 <h1>README for GCC RELEASE (ARCH)</h1>
 
-<p>This is GCC RELEASE built on macOS Sonoma (14, Darwin 23) but able to run on Monterey, for Apple silicon (M1), with Command Line Utilities 14.2.0 and Python 3.9.13.</p>
+<p>This is GCC RELEASE built on macOS Sonoma (14, Darwin 23) but able to run on Monterey, for Apple silicon (M1), with Command Line Utilities 15.3.0 and Python 3.9.13.</p>
 
 <p>Please see the <a href="BUILD_NOTES">build notes</a> for full details.
 

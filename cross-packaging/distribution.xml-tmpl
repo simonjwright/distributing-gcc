@@ -4,24 +4,24 @@
     <readme file="readme.html" mime-type="text/html"/>
     <license file="license.html" mime-type="text/html"/>
     <conclusion file="conclusion.html" mime-type="text/html"/>
-    <pkg-ref id="COMPILER-HOST-MACHINE"/>
+    <pkg-ref id="COMPILER-HOST-ARCH"/>
     <options
         customize="never"
         require-scripts="false"
         hostArchitectures="arm64"/>
     <choices-outline>
         <line choice="default">
-            <line choice="COMPILER-HOST-MACHINE"/>
+            <line choice="COMPILER-HOST-ARCH"/>
         </line>
     </choices-outline>
     <choice id="default"/>
-    <choice id="COMPILER-HOST-MACHINE" visible="false">
-        <pkg-ref id="COMPILER-HOST-MACHINE"/>
+    <choice id="COMPILER-HOST-ARCH" visible="false">
+        <pkg-ref id="COMPILER-HOST-ARCH"/>
     </choice>
     <pkg-ref
-        id="COMPILER-HOST-MACHINE"
+        id="COMPILER-HOST-ARCH"
         version="1"
         onConclusion="none">
-      COMPILER-HOST-MACHINE.pkg
+      COMPILER-HOST-ARCH.pkg
     </pkg-ref>
 </installer-gui-script>

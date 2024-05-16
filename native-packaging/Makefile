@@ -1,7 +1,7 @@
-BUILD_ROOT = /opt
-BUILD_NOTES = https://github.com/simonjwright/building-gcc-macos-native/releases/tag/gcc-13.2.0-aarch64
+BUILD_ROOT = /Volumes/Miscellaneous3/$(ARCH)
+BUILD_NOTES = https://github.com/simonjwright/building-gcc-macos-native/releases/tag/gcc-14.1.0-aarch64
 COMPILER = gcc-$(RELEASE)
-RELEASE = 13.2.0
+RELEASE = 14.1.0
 VERSION = 1
 ARCH = aarch64
 MACHINE = $(ARCH)-apple-darwin21

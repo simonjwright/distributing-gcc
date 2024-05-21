@@ -7,7 +7,7 @@
 
 <h1>Summary for GCC RELEASE (ARCH on HOST)</h1>
 
-<p>The compiler is now installed under <tt>/opt/gcc-RELEASE-HOST</tt>.
+<p>The compiler is now installed under <tt>TARGET_ROOT/COMPILER-HOST</tt>.
 
 <p>See the <a href="https://github.com/simonjwright/distributing-gcc/wiki">Wiki</a> for
 <ul>

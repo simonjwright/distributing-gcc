@@ -64,7 +64,7 @@ $(PWD)/product/$(PKG_FILE_NAME).pkg: \
 	rm -rf product
 	mkdir product
 	productbuild						\
-	  --distribution $$PWD/distribution.xml			\
+	  --distribution distribution.xml			\
 	  --package-path $$PWD/package				\
 	  --resources $$PWD/resources				\
 	  $@

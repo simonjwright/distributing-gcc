@@ -1,17 +1,14 @@
 BUILD_ROOT = /Volumes/Miscellaneous3/$(ARCH)
-BUILD_NOTES = https://github.com/simonjwright/building-gcc-macos-native/releases/tag/gcc-14.1.0-aarch64
+BUILD_NOTES = https://github.com/simonjwright/building-gcc-macos-native/releases/tag/gcc-14.1.0-1-aarch64
 COMPILER = gcc-$(RELEASE)
-RELEASE = 14.1.0
+RELEASE = 14.1.0-1
 VERSION = 1
 ARCH = aarch64
 MACHINE = $(ARCH)-apple-darwin21
 TARGET_ROOT = /opt
 PKG_NAME = $(COMPILER)-$(MACHINE)
 
-# Append release discriminant for repeat releases of the same compiler release.
-PKG_FILE_NAME = $(PKG_NAME)
-
-all: $(PWD)/product/$(PKG_FILE_NAME).pkg
+all: $(PWD)/product/$(PKG_NAME).pkg
 
 $(PWD)/package/$(PKG_NAME).pkg:
 	rm -rf package
@@ -53,7 +50,7 @@ html:: resources/en.lproj/license.html
 html:: resources/en.lproj/readme.html
 html:: resources/en.lproj/conclusion.html
 
-$(PWD)/product/$(PKG_FILE_NAME).pkg: \
+$(PWD)/product/$(PKG_NAME).pkg: \
  $(PWD)/package/$(PKG_NAME).pkg distribution.xml html
 	find . -name \*~ | xargs rm
 	rm -rf product

@@ -1,10 +1,10 @@
 BUILD_ROOT = /Volumes/Miscellaneous3/$(ARCH)
-BUILD_NOTES = https://github.com/simonjwright/building-gcc-macos-native/releases/tag/gcc-14.2.0-1-aarch64
+BUILD_NOTES = https://github.com/simonjwright/building-gcc-macos-native/releases/tag/gcc-14.2.0-2-aarch64
 COMPILER = gcc-$(RELEASE)
-RELEASE = 14.2.0-1
+RELEASE = 14.2.0-2
 VERSION = 1
 ARCH = aarch64
-MACHINE = $(ARCH)-apple-darwin21
+MACHINE = $(ARCH)-apple-darwin23
 TARGET_ROOT = /opt
 PKG_NAME = $(COMPILER)-$(MACHINE)
 

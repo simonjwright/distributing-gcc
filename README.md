@@ -6,6 +6,6 @@ For notes on installation, paths etc see the [Wiki](https://github.com/simonjwri
 
 The build scripts are available in these repositories:
 * [for native compilers](https://github.com/simonjwright/building-gcc-macos-native), both Intel and Apple silicon, and
-* [for cross-compilers](https://github.com/simonjwright/building-gcc-macos-arm-eabi) to ARM Cortex MCUs (`arm-eabi`).
+* [for cross-compilers](https://github.com/simonjwright/building-gcc-macos-arm-eabi) to ARM Cortex (`arm-eabi`) and RISC-V (`riscv64-elf`) MCUs.
 
 _This_ repository contains the scripts used to create the packaged releases.

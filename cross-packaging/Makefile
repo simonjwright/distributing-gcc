@@ -1,7 +1,7 @@
 BUILD_ROOT = /Volumes/Miscellaneous3/$(ARCH)
-BUILD_NOTES = https://github.com/simonjwright/building-gcc-macos-cross/releases/tag/gcc-14.2.0-1-aarch64
+BUILD_NOTES = https://github.com/simonjwright/building-gcc-macos-cross/releases/tag/gcc-14.2.0-3-aarch64
 COMPILER = gcc-$(RELEASE)
-RELEASE = 14.2.0-1
+RELEASE = 14.2.0-3
 VERSION = 1
 HOST = aarch64
 #ifndef ARCH
